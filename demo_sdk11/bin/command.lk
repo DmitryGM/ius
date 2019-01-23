@@ -1,0 +1,12 @@
+startup.obj 
+,I2C.OBJ 
+,LCD.OBJ 
+,MAIN.OBJ 
+,MAX.OBJ 
+,SIO.OBJ 
+,VECT.OBJ 
+,EEPROM.OBJ 
+,RTC.OBJ 
+,BUZZ.OBJ 
+,KB.OBJ 
+to example CODE(2100H) XDATA(04000H) 

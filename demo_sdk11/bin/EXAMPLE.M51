@@ -1,0 +1,1506 @@
+L51 LINKER/LOCATOR V3.52                                                                  11/04/02  17:23:53  PAGE 1
+
+
+MS-DOS L51 LINKER/LOCATOR V3.52, INVOKED BY:
+D:\C51\BIN\BL51.EXE STARTUP.OBJ, I2C.OBJ, LCD.OBJ, MAIN.OBJ, MAX.OBJ, SIO.OBJ, VECT.OBJ, EEPROM.OBJ, RTC.OBJ, BUZZ.OBJ, 
+>> KB.OBJ TO EXAMPLE CODE (2100H) XDATA (04000H)
+
+
+MEMORY MODEL: LARGE
+
+
+INPUT MODULES INCLUDED:
+  STARTUP.OBJ (?C_STARTUP)
+  I2C.OBJ (I2C)
+  LCD.OBJ (LCD)
+  MAIN.OBJ (MAIN)
+  MAX.OBJ (MAX)
+  SIO.OBJ (SIO)
+  VECT.OBJ (VECT)
+  EEPROM.OBJ (EEPROM)
+  RTC.OBJ (RTC)
+  BUZZ.OBJ (BUZZ)
+  KB.OBJ (KB)
+  D:\C51\LIB\C51L.LIB (?C_INIT)
+  D:\C51\LIB\C51L.LIB (?C?CLDPTR)
+  D:\C51\LIB\C51L.LIB (?C?CSTPTR)
+  D:\C51\LIB\C51L.LIB (?C?IILDX)
+  D:\C51\LIB\C51L.LIB (?C?ILDIX)
+  D:\C51\LIB\C51L.LIB (?C?SLCMP)
+
+
+LINK MAP OF MODULE:  EXAMPLE (?C_STARTUP)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+                    0008H     0018H                  *** GAP ***
+            BIT     0020H.0   0000H.2   UNIT         ?BI?LCD_SWITCHCURSOR?LCD
+            BIT     0020H.2   0000H.2   UNIT         ?BI?LCD
+            BIT     0020H.4   0000H.2   UNIT         _BIT_GROUP_
+                    0020H.6   0000H.2                *** GAP ***
+            IDATA   0021H     0001H     UNIT         ?STACK
+
+            * * * * * * *  X D A T A   M E M O R Y  * * * * * * *
+                    0000H     4000H                  *** GAP ***
+            XDATA   4000H     0001H     UNIT         ?XD?LCD_SWITCHCURSOR?LCD
+            XDATA   4001H     0001H     UNIT         ?XD?LCD
+            XDATA   4002H     0036H     UNIT         ?XD?MAIN
+            XDATA   4038H     0011H     UNIT         ?XD?KB
+            XDATA   4049H     0013H     UNIT         _XDATA_GROUP_
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+                    0000H     2100H                  *** GAP ***
+            CODE    2100H     0003H     ABSOLUTE     
+            CODE    2103H     008CH     UNIT         ?C_C51STARTUP
+            CODE    218FH     000EH     UNIT         ?PR?DELAY?I2C
+            CODE    219DH     0038H     UNIT         ?PR?_SENDBYTE?I2C
+            CODE    21D5H     0011H     UNIT         ?PR?START?I2C
+            CODE    21E6H     0013H     UNIT         ?PR?STOP?I2C
+            CODE    21F9H     000BH     UNIT         ?PR?_BEGIN?I2C
+            CODE    2204H     000EH     UNIT         ?PR?ACK?I2C
+            CODE    2212H     000EH     UNIT         ?PR?NACK?I2C
+            CODE    2220H     0015H     UNIT         ?PR?_GETACK?I2C
+            CODE    2235H     0020H     UNIT         ?PR?RECVBYTE?I2C
+            CODE    2255H     0097H     UNIT         ?PR?_RECEIVEBLOCK?I2C
+            CODE    22ECH     0047H     UNIT         ?PR?_TRANSMITBLOCK?I2C
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 2
+
+
+            CODE    2333H     0005H     UNIT         ?PR?SWITCHCURPOSCONTROL?LCD
+            CODE    2338H     002DH     UNIT         ?PR?_STROBE?LCD
+            CODE    2365H     002AH     UNIT         ?PR?LCD_SWITCHCURSOR?LCD
+            CODE    238FH     0016H     UNIT         ?PR?LCD_CLEAR?LCD
+            CODE    23A5H     00D4H     UNIT         ?PR?INITLCD?LCD
+            CODE    2479H     0037H     UNIT         ?PR?_LCD_PUTCH?LCD
+            CODE    24B0H     002EH     UNIT         ?PR?_LCD_GOTOXY?LCD
+            CODE    24DEH     0044H     UNIT         ?PR?_LCD_TYPE?LCD
+            CODE    2522H     0024H     UNIT         ?C_INITSEG
+            CODE    2546H     0355H     UNIT         ?PR?MAIN?MAIN
+            CODE    289BH     00B8H     UNIT         ?CO?MAIN
+            CODE    2953H     0010H     UNIT         ?PR?_WRITEMAX?MAX
+            CODE    2963H     0013H     UNIT         ?PR?_READMAX?MAX
+            CODE    2976H     0003H     UNIT         ?PR?RSIOSTAT?SIO
+            CODE    2979H     0008H     UNIT         ?PR?_WSIO?SIO
+            CODE    2981H     0008H     UNIT         ?PR?RSIO?SIO
+            CODE    2989H     0034H     UNIT         ?PR?_TYPE?SIO
+            CODE    29BDH     0019H     UNIT         ?PR?_INITSIO?SIO
+            CODE    29D6H     0026H     UNIT         ?PR?_SETVECT?VECT
+            CODE    29FCH     0017H     UNIT         ?PR?_GETVECT?VECT
+            CODE    2A13H     0106H     UNIT         ?PR?_WRITEBLOCKEEPROM?EEPROM
+            CODE    2B19H     0067H     UNIT         ?PR?_READBLOCKEEPROM?EEPROM
+            CODE    2B80H     00E4H     UNIT         ?PR?_GETTIME?RTC
+            CODE    2C64H     00ABH     UNIT         ?PR?_SETTIME?RTC
+            CODE    2D0FH     0055H     UNIT         ?PR?BUZZ?BUZZ
+            CODE    2D64H     00BBH     UNIT         ?PR?_SCANKBONCE?KB
+            CODE    2E1FH     006DH     UNIT         ?C?LIB_CODE
+
+
+
+OVERLAY MAP OF MODULE:   EXAMPLE (?C_STARTUP)
+
+
+SEGMENT                                 BIT_GROUP          XDATA_GROUP
+  +--> CALLED SEGMENT                START    LENGTH     START    LENGTH
+------------------------------------------------------------------------
+?C_C51STARTUP                        -----    -----      -----    -----
+  +--> ?PR?MAIN?MAIN
+  +--> ?C_INITSEG
+
+?PR?MAIN?MAIN                        -----    -----      4049H    0006H
+  +--> ?PR?INITLCD?LCD
+  +--> ?PR?_INITSIO?SIO
+  +--> ?CO?MAIN
+  +--> ?PR?_TYPE?SIO
+  +--> ?PR?BUZZ?BUZZ
+  +--> ?PR?LCD_CLEAR?LCD
+  +--> ?PR?_LCD_TYPE?LCD
+  +--> ?PR?_LCD_GOTOXY?LCD
+  +--> ?PR?_WRITEBLOCKEEPROM?EEPROM
+  +--> ?PR?_READBLOCKEEPROM?EEPROM
+  +--> ?PR?RSIOSTAT?SIO
+  +--> ?PR?RSIO?SIO
+  +--> ?PR?_SETTIME?RTC
+  +--> ?PR?_GETTIME?RTC
+  +--> ?PR?_WSIO?SIO
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_SCANKBONCE?KB
+  +--> ?PR?_LCD_PUTCH?LCD
+
+?PR?INITLCD?LCD                      -----    -----      404FH    0002H
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_STROBE?LCD
+
+?PR?_STROBE?LCD                      -----    -----      4054H    0001H
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 3
+
+
+  +--> ?PR?_WRITEMAX?MAX
+
+?PR?_INITSIO?SIO                     0020H.4  0000H.1    -----    -----
+
+?PR?_TYPE?SIO                        -----    -----      404FH    0003H
+  +--> ?PR?_WSIO?SIO
+
+?PR?BUZZ?BUZZ                        -----    -----      404FH    0003H
+  +--> ?PR?_WRITEMAX?MAX
+
+?PR?LCD_CLEAR?LCD                    -----    -----      404FH    0002H
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_STROBE?LCD
+
+?PR?_LCD_TYPE?LCD                    0020H.4  0000H.1    404FH    0003H
+  +--> ?PR?SWITCHCURPOSCONTROL?LCD
+  +--> ?PR?_LCD_PUTCH?LCD
+
+?PR?SWITCHCURPOSCONTROL?LCD          0020H.5  0000H.1    -----    -----
+
+?PR?_LCD_PUTCH?LCD                   -----    -----      4052H    0001H
+  +--> ?PR?_LCD_GOTOXY?LCD
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_STROBE?LCD
+
+?PR?_LCD_GOTOXY?LCD                  0020H.5  0000H.1    4053H    0001H
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_STROBE?LCD
+
+?PR?_WRITEBLOCKEEPROM?EEPROM         -----    -----      404FH    0008H
+  +--> ?PR?_GETACK?I2C
+  +--> ?PR?_TRANSMITBLOCK?I2C
+
+?PR?_GETACK?I2C                      -----    -----      -----    -----
+  +--> ?PR?_BEGIN?I2C
+  +--> ?PR?STOP?I2C
+
+?PR?_BEGIN?I2C                       -----    -----      -----    -----
+  +--> ?PR?START?I2C
+  +--> ?PR?_SENDBYTE?I2C
+
+?PR?START?I2C                        -----    -----      -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?_SENDBYTE?I2C                    0020H.4  0000H.1    -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?STOP?I2C                         -----    -----      -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?_TRANSMITBLOCK?I2C               -----    -----      4057H    0005H
+  +--> ?PR?_BEGIN?I2C
+  +--> ?PR?STOP?I2C
+  +--> ?PR?_SENDBYTE?I2C
+
+?PR?_READBLOCKEEPROM?EEPROM          -----    -----      404FH    0006H
+  +--> ?PR?_GETACK?I2C
+  +--> ?PR?_RECEIVEBLOCK?I2C
+
+?PR?_RECEIVEBLOCK?I2C                -----    -----      4055H    0006H
+  +--> ?PR?_BEGIN?I2C
+  +--> ?PR?STOP?I2C
+  +--> ?PR?_SENDBYTE?I2C
+  +--> ?PR?DELAY?I2C
+  +--> ?PR?RECVBYTE?I2C
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 4
+
+
+  +--> ?PR?ACK?I2C
+  +--> ?PR?NACK?I2C
+
+?PR?RECVBYTE?I2C                     -----    -----      -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?ACK?I2C                          -----    -----      -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?NACK?I2C                         -----    -----      -----    -----
+  +--> ?PR?DELAY?I2C
+
+?PR?_SETTIME?RTC                     -----    -----      404FH    0007H
+  +--> ?PR?_GETACK?I2C
+  +--> ?PR?_TRANSMITBLOCK?I2C
+
+?PR?_GETTIME?RTC                     -----    -----      404FH    0002H
+  +--> ?PR?_GETACK?I2C
+  +--> ?PR?_RECEIVEBLOCK?I2C
+
+?PR?_SCANKBONCE?KB                   -----    -----      404FH    0006H
+  +--> ?PR?_WRITEMAX?MAX
+  +--> ?PR?_READMAX?MAX
+
+
+
+SYMBOL TABLE OF MODULE:  EXAMPLE (?C_STARTUP)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        I2C
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2212H         SYMBOL        Nack
+  C:219DH         SYMBOL        _SendByte
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.4       PUBLIC        T0
+  B:00B0H.5       PUBLIC        T1
+  B:00A8H.7       PUBLIC        EA
+  B:0090H.0       PUBLIC        T2
+  B:00C8H.0       PUBLIC        CAP2
+  B:00E8H.0       PUBLIC        I2CI
+  B:00D8H.4       PUBLIC        SCONV
+  B:00E8H.3       PUBLIC        I2CM
+  B:00A8H.6       PUBLIC        EADC
+  C:2204H         SYMBOL        Ack
+  C:21D5H         SYMBOL        Start
+  C:2220H         PUBLIC        _GetAck
+  B:00D8H.7       PUBLIC        ADCI
+  C:2255H         PUBLIC        _ReceiveBlock
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+  B:00C8H.1       PUBLIC        CNT2
+  B:00C0H.5       PUBLIC        PRE0
+  B:00A8H.4       PUBLIC        ES
+  B:00C0H.6       PUBLIC        PRE1
+  B:00B8H.6       PUBLIC        PADC
+  B:00C0H.7       PUBLIC        PRE2
+  B:0098H.0       PUBLIC        RI
+  B:00D0H.7       PUBLIC        CY
+  B:00B0H.2       PUBLIC        INT0
+  B:00F8H.2       PUBLIC        CPHA
+  B:00B0H.3       PUBLIC        INT1
+  B:0098H.1       PUBLIC        TI
+  B:00C0H.3       PUBLIC        WDR1
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 5
+
+
+  B:00C0H.2       PUBLIC        WDR2
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  C:22ECH         PUBLIC        _TransmitBlock
+  B:00F8H.0       PUBLIC        SPR0
+  B:00F8H.1       PUBLIC        SPR1
+  C:21E6H         SYMBOL        Stop
+  C:2235H         PUBLIC        RecvByte
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00F8H.3       PUBLIC        CPOL
+  B:00C8H.4       PUBLIC        TCLK
+  B:00F8H.6       PUBLIC        WCOL
+  B:00F8H.7       PUBLIC        ISPI
+  B:00F8H.4       PUBLIC        SPIM
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  B:00D8H.0       PUBLIC        CS0
+  C:21F9H         SYMBOL        _Begin
+  B:00D8H.1       PUBLIC        CS1
+  B:00D8H.2       PUBLIC        CS2
+  B:00D8H.3       PUBLIC        CS3
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0098H.3       PUBLIC        TB8
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:00D8H.6       PUBLIC        DMA
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.3       PUBLIC        PT1
+  B:00E8H.6       PUBLIC        MDE
+  B:00D0H.4       PUBLIC        RS1
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00E8H.4       PUBLIC        MDI
+  B:00E8H.5       PUBLIC        MCO
+  B:00E8H.7       PUBLIC        MDO
+  B:00C0H.0       PUBLIC        WDE
+  B:00E8H.2       PUBLIC        I2CRS
+  B:0098H.4       PUBLIC        REN
+  B:00F8H.5       PUBLIC        SPE
+  B:00E8H.1       PUBLIC        I2CTX
+  B:00C8H.3       PUBLIC        XEN
+  B:00B8H.7       PUBLIC        PSI
+  B:00C0H.1       PUBLIC        WDS
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  C:218FH         SYMBOL        Delay
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 6
+
+
+  B:00D0H.5       PUBLIC        F0
+  B:00D0H.1       PUBLIC        F1
+  B:00D8H.5       PUBLIC        CCONV
+  -------         PROC          DELAY
+  C:218FH         LINE#         49
+  C:218FH         LINE#         50
+  -------         DO            DELAY
+  D:0007H         SYMBOL        ch
+  C:218FH         LINE#         51
+  C:2191H         LINE#         53
+  C:219CH         LINE#         54
+  -------         ENDDO         ch
+  -------         ENDPROC       DELAY
+  -------         PROC          _SENDBYTE
+  D:0005H         SYMBOL        ch
+  C:219DH         LINE#         66
+  C:219FH         LINE#         67
+  -------         DO            ch
+  D:0004H         SYMBOL        cnt
+  B:0020H.4       SYMBOL        ack
+  C:219FH         LINE#         71
+  C:21A1H         LINE#         72
+  C:21A3H         LINE#         73
+  C:21ADH         LINE#         74
+  C:21ADH         LINE#         75
+  C:21B7H         LINE#         76
+  C:21B9H         LINE#         77
+  C:21BCH         LINE#         78
+  C:21BEH         LINE#         79
+  C:21C5H         LINE#         80
+  C:21C7H         LINE#         81
+  C:21C9H         LINE#         82
+  C:21CCH         LINE#         83
+  C:21D0H         LINE#         84
+  C:21D2H         LINE#         85
+  C:21D4H         LINE#         86
+  -------         ENDDO         ack
+  -------         ENDPROC       _SENDBYTE
+  -------         PROC          START
+  C:21D5H         LINE#         97
+  C:21D5H         LINE#         98
+  C:21D5H         LINE#         99
+  C:21D7H         LINE#         100
+  C:21D9H         LINE#         101
+  C:21DBH         LINE#         102
+  C:21DEH         LINE#         103
+  C:21E0H         LINE#         104
+  C:21E3H         LINE#         105
+  C:21E5H         LINE#         106
+  -------         ENDPROC       START
+  -------         PROC          STOP
+  C:21E6H         LINE#         117
+  C:21E6H         LINE#         118
+  C:21E6H         LINE#         119
+  C:21E8H         LINE#         120
+  C:21EAH         LINE#         121
+  C:21ECH         LINE#         122
+  C:21EEH         LINE#         123
+  C:21F1H         LINE#         124
+  C:21F3H         LINE#         125
+  C:21F6H         LINE#         126
+  C:21F8H         LINE#         127
+  -------         ENDPROC       STOP
+  -------         PROC          _BEGIN
+  D:0005H         SYMBOL        addr
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 7
+
+
+  C:21F9H         LINE#         140
+  C:21FBH         LINE#         141
+  C:21FBH         LINE#         142
+  C:21FEH         LINE#         143
+  C:2203H         LINE#         144
+  -------         ENDPROC       _BEGIN
+  -------         PROC          ACK
+  C:2204H         LINE#         155
+  C:2204H         LINE#         156
+  C:2204H         LINE#         157
+  C:2206H         LINE#         158
+  C:2208H         LINE#         159
+  C:220AH         LINE#         160
+  C:220CH         LINE#         161
+  C:220FH         LINE#         162
+  C:2211H         LINE#         163
+  -------         ENDPROC       ACK
+  -------         PROC          NACK
+  C:2212H         LINE#         174
+  C:2212H         LINE#         175
+  C:2212H         LINE#         176
+  C:2214H         LINE#         177
+  C:2216H         LINE#         178
+  C:2218H         LINE#         179
+  C:221AH         LINE#         180
+  C:221DH         LINE#         181
+  C:221FH         LINE#         182
+  -------         ENDPROC       NACK
+  -------         PROC          _GETACK
+  D:0007H         SYMBOL        address
+  C:2220H         LINE#         194
+  C:2220H         LINE#         195
+  C:2220H         LINE#         196
+  C:2222H         LINE#         197
+  C:2230H         LINE#         198
+  C:2233H         LINE#         200
+  C:2234H         LINE#         201
+  -------         ENDPROC       _GETACK
+  -------         PROC          RECVBYTE
+  C:2235H         LINE#         213
+  C:2235H         LINE#         214
+  -------         DO            RECVBYTE
+  D:0004H         SYMBOL        cnt
+  D:0005H         SYMBOL        ch
+  C:2235H         LINE#         216
+  C:2237H         LINE#         218
+  C:2239H         LINE#         219
+  C:223BH         LINE#         220
+  C:223CH         LINE#         221
+  C:223CH         LINE#         222
+  C:2240H         LINE#         223
+  C:2242H         LINE#         224
+  C:2245H         LINE#         225
+  C:224BH         LINE#         226
+  C:224DH         LINE#         227
+  C:2252H         LINE#         228
+  C:2254H         LINE#         229
+  -------         ENDDO         ch
+  -------         ENDPROC       RECVBYTE
+  -------         PROC          _RECEIVEBLOCK
+  X:4055H         SYMBOL        address
+  X:4056H         SYMBOL        addr
+  X:4057H         SYMBOL        block
+  X:4059H         SYMBOL        len
+  C:2255H         LINE#         247
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 8
+
+
+  C:2262H         LINE#         248
+  -------         DO            len
+  D:0003H         SYMBOL        l
+  X:405AH         SYMBOL        ch
+  C:2262H         LINE#         251
+  C:2264H         LINE#         252
+  C:2268H         LINE#         254
+  C:2273H         LINE#         255
+  C:2282H         LINE#         256
+  C:2285H         LINE#         257
+  C:2288H         LINE#         259
+  C:228CH         LINE#         260
+  C:2297H         LINE#         261
+  C:229AH         LINE#         263
+  C:22A1H         LINE#         264
+  C:22A1H         LINE#         265
+  C:22AEH         LINE#         266
+  C:22AEH         LINE#         267
+  C:22B4H         LINE#         268
+  C:22B7H         LINE#         269
+  C:22CAH         LINE#         270
+  C:22CDH         LINE#         271
+  C:22CDH         LINE#         273
+  C:22D5H         LINE#         274
+  C:22D8H         LINE#         275
+  C:22E7H         LINE#         276
+  C:22EAH         LINE#         277
+  C:22EBH         LINE#         278
+  -------         ENDDO         ch
+  -------         ENDPROC       _RECEIVEBLOCK
+  -------         PROC          _TRANSMITBLOCK
+  X:4057H         SYMBOL        address
+  X:4058H         SYMBOL        addr
+  X:4059H         SYMBOL        block
+  X:405BH         SYMBOL        len
+  C:22ECH         LINE#         297
+  C:22EEH         LINE#         298
+  -------         DO            len
+  D:0007H         SYMBOL        ch
+  D:0001H         SYMBOL        l
+  C:22EEH         LINE#         301
+  C:22F0H         LINE#         302
+  C:22F4H         LINE#         303
+  C:22FEH         LINE#         304
+  C:230AH         LINE#         306
+  C:2316H         LINE#         307
+  C:2316H         LINE#         308
+  C:231CH         LINE#         309
+  C:2326H         LINE#         310
+  C:232EH         LINE#         311
+  C:2331H         LINE#         312
+  C:2332H         LINE#         313
+  -------         ENDDO         l
+  -------         ENDPROC       _TRANSMITBLOCK
+  -------         ENDMOD        I2C
+
+  -------         MODULE        LCD
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2479H         PUBLIC        _LCD_Putch
+  C:238FH         PUBLIC        LCD_Clear
+  X:4001H         SYMBOL        cur_x
+  B:0020H.2       SYMBOL        cur_y
+  C:2365H         PUBLIC        LCD_SwitchCursor
+  C:24DEH         PUBLIC        _LCD_Type
+  C:2333H         PUBLIC        SwitchCurPosControl
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 9
+
+
+  C:2338H         PUBLIC        _Strobe
+  C:24B0H         PUBLIC        _LCD_GotoXY
+  C:23A5H         PUBLIC        InitLCD
+  B:0020H.3       SYMBOL        CurPosCtrl
+  -------         PROC          SWITCHCURPOSCONTROL
+  B:0020H.5       SYMBOL        o
+  C:2333H         LINE#         66
+  C:2333H         LINE#         67
+  C:2333H         LINE#         68
+  C:2337H         LINE#         69
+  -------         ENDPROC       SWITCHCURPOSCONTROL
+  -------         PROC          _STROBE
+  X:4054H         SYMBOL        c
+  C:2338H         LINE#         88
+  C:233DH         LINE#         89
+  -------         DO            c
+  D:0006H         SYMBOL        i
+  C:233DH         LINE#         92
+  C:2348H         LINE#         93
+  C:2356H         LINE#         95
+  C:2364H         LINE#         98
+  -------         ENDDO         i
+  -------         ENDPROC       _STROBE
+  -------         PROC          LCD_SWITCHCURSOR
+  B:0020H.0       SYMBOL        cursor
+  B:0020H.1       SYMBOL        blink
+  C:2365H         LINE#         113
+  C:2365H         LINE#         114
+  -------         DO            blink
+  X:4000H         SYMBOL        i
+  C:2365H         LINE#         115
+  C:236AH         LINE#         117
+  C:2389H         LINE#         122
+  C:238EH         LINE#         124
+  -------         ENDDO         i
+  -------         ENDPROC       LCD_SWITCHCURSOR
+  -------         PROC          LCD_CLEAR
+  C:238FH         LINE#         136
+  C:238FH         LINE#         137
+  -------         DO            LCD_CLEAR
+  X:404FH         SYMBOL        i
+  C:238FH         LINE#         140
+  C:2398H         LINE#         141
+  C:239DH         LINE#         142
+  C:23A2H         LINE#         143
+  C:23A4H         LINE#         145
+  -------         ENDDO         i
+  -------         ENDPROC       LCD_CLEAR
+  -------         PROC          INITLCD
+  C:23A5H         LINE#         157
+  C:23A5H         LINE#         158
+  -------         DO            INITLCD
+  X:404FH         SYMBOL        i
+  C:23A5H         LINE#         161
+  C:23C6H         LINE#         164
+  C:23CFH         LINE#         165
+  C:23D4H         LINE#         166
+  C:23F5H         LINE#         170
+  C:23FEH         LINE#         171
+  C:2403H         LINE#         172
+  C:2424H         LINE#         175
+  C:242DH         LINE#         176
+  C:2432H         LINE#         180
+  C:243BH         LINE#         181
+  C:2440H         LINE#         184
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 10
+
+
+  C:2449H         LINE#         185
+  C:244EH         LINE#         188
+  C:2457H         LINE#         189
+  C:245CH         LINE#         192
+  C:2465H         LINE#         193
+  C:246AH         LINE#         195
+  C:2473H         LINE#         196
+  C:2478H         LINE#         197
+  -------         ENDDO         i
+  -------         ENDPROC       INITLCD
+  -------         PROC          _LCD_PUTCH
+  X:4052H         SYMBOL        ch
+  C:2479H         LINE#         212
+  C:247EH         LINE#         213
+  C:247EH         LINE#         215
+  C:2481H         LINE#         216
+  C:2481H         LINE#         217
+  C:248DH         LINE#         218
+  C:249EH         LINE#         219
+  C:249EH         LINE#         221
+  C:24AAH         LINE#         222
+  C:24AFH         LINE#         223
+  -------         ENDPROC       _LCD_PUTCH
+  -------         PROC          _LCD_GOTOXY
+  X:4053H         SYMBOL        x
+  B:0020H.5       SYMBOL        y
+  C:24B0H         LINE#         235
+  C:24B5H         LINE#         236
+  C:24B5H         LINE#         237
+  C:24CCH         LINE#         238
+  C:24D1H         LINE#         239
+  C:24D9H         LINE#         240
+  C:24DDH         LINE#         241
+  -------         ENDPROC       _LCD_GOTOXY
+  -------         PROC          _LCD_TYPE
+  X:404FH         SYMBOL        s
+  C:24DEH         LINE#         252
+  C:24E9H         LINE#         253
+  -------         DO            s
+  B:0020H.4       SYMBOL        t
+  C:24E9H         LINE#         254
+  C:24EDH         LINE#         256
+  C:24F2H         LINE#         257
+  C:2502H         LINE#         258
+  C:251AH         LINE#         260
+  C:2521H         LINE#         261
+  -------         ENDDO         t
+  -------         ENDPROC       _LCD_TYPE
+  -------         ENDMOD        LCD
+
+  -------         MODULE        MAIN
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.4       PUBLIC        T0
+  B:00B0H.5       PUBLIC        T1
+  B:00A8H.7       PUBLIC        EA
+  B:0090H.0       PUBLIC        T2
+  B:00C8H.0       PUBLIC        CAP2
+  B:00E8H.0       PUBLIC        I2CI
+  B:00D8H.4       PUBLIC        SCONV
+  B:00E8H.3       PUBLIC        I2CM
+  B:00A8H.6       PUBLIC        EADC
+  B:00D8H.7       PUBLIC        ADCI
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 11
+
+
+  B:00C8H.1       PUBLIC        CNT2
+  B:00C0H.5       PUBLIC        PRE0
+  B:00A8H.4       PUBLIC        ES
+  B:00C0H.6       PUBLIC        PRE1
+  B:00B8H.6       PUBLIC        PADC
+  B:00C0H.7       PUBLIC        PRE2
+  B:0098H.0       PUBLIC        RI
+  B:00D0H.7       PUBLIC        CY
+  B:00B0H.2       PUBLIC        INT0
+  B:00F8H.2       PUBLIC        CPHA
+  B:00B0H.3       PUBLIC        INT1
+  B:0098H.1       PUBLIC        TI
+  B:00C0H.3       PUBLIC        WDR1
+  B:00C0H.2       PUBLIC        WDR2
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  B:00F8H.0       PUBLIC        SPR0
+  C:2546H         PUBLIC        main
+  B:00F8H.1       PUBLIC        SPR1
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00F8H.3       PUBLIC        CPOL
+  B:00C8H.4       PUBLIC        TCLK
+  X:4002H         PUBLIC        time
+  B:00F8H.6       PUBLIC        WCOL
+  B:00F8H.7       PUBLIC        ISPI
+  B:00F8H.4       PUBLIC        SPIM
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  B:00D8H.0       PUBLIC        CS0
+  B:00D8H.1       PUBLIC        CS1
+  B:00D8H.2       PUBLIC        CS2
+  B:00D8H.3       PUBLIC        CS3
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0098H.3       PUBLIC        TB8
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:00D8H.6       PUBLIC        DMA
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.3       PUBLIC        PT1
+  B:00E8H.6       PUBLIC        MDE
+  B:00D0H.4       PUBLIC        RS1
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00E8H.4       PUBLIC        MDI
+  B:00E8H.5       PUBLIC        MCO
+  B:00E8H.7       PUBLIC        MDO
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 12
+
+
+  B:00C0H.0       PUBLIC        WDE
+  B:00E8H.2       PUBLIC        I2CRS
+  B:0098H.4       PUBLIC        REN
+  B:00F8H.5       PUBLIC        SPE
+  B:00E8H.1       PUBLIC        I2CTX
+  B:00C8H.3       PUBLIC        XEN
+  B:00B8H.7       PUBLIC        PSI
+  B:00C0H.1       PUBLIC        WDS
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  B:00D0H.5       PUBLIC        F0
+  B:00D0H.1       PUBLIC        F1
+  B:00D8H.5       PUBLIC        CCONV
+  X:4006H         PUBLIC        buffer
+  -------         PROC          MAIN
+  C:2546H         LINE#         69
+  C:2546H         LINE#         70
+  -------         DO            MAIN
+  X:4049H         SYMBOL        i
+  X:404BH         SYMBOL        p
+  X:404DH         SYMBOL        ch
+  X:404EH         SYMBOL        leds
+  C:2546H         LINE#         75
+  C:2549H         LINE#         76
+  C:2550H         LINE#         77
+  C:2559H         LINE#         80
+  C:255CH         LINE#         84
+  C:2563H         LINE#         85
+  C:2590H         LINE#         87
+  C:2593H         LINE#         88
+  C:259CH         LINE#         89
+  C:25A3H         LINE#         91
+  C:25B0H         LINE#         92
+  C:25BBH         LINE#         94
+  C:25C4H         LINE#         96
+  C:25F2H         LINE#         99
+  C:25F9H         LINE#         100
+  C:2606H         LINE#         101
+  C:2611H         LINE#         103
+  C:2611H         LINE#         104
+  C:2618H         LINE#         105
+  C:262DH         LINE#         106
+  C:262DH         LINE#         107
+  C:2636H         LINE#         108
+  C:2638H         LINE#         109
+  C:2655H         LINE#         111
+  C:266AH         LINE#         112
+  C:266AH         LINE#         114
+  C:2688H         LINE#         115
+  C:268DH         LINE#         116
+  C:268DH         LINE#         117
+  C:2692H         LINE#         118
+  C:26A2H         LINE#         123
+  C:26ABH         LINE#         124
+  C:26B4H         LINE#         126
+  C:26B7H         LINE#         127
+  C:26C0H         LINE#         129
+  C:26C0H         LINE#         130
+  C:26C0H         LINE#         131
+  C:26C5H         LINE#         132
+  C:26C5H         LINE#         133
+  C:26CBH         LINE#         134
+  C:26CBH         LINE#         136
+  C:26D4H         LINE#         137
+  C:26DBH         LINE#         139
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 13
+
+
+  C:26E4H         LINE#         140
+  C:26E4H         LINE#         141
+  C:26EDH         LINE#         142
+  C:26F6H         LINE#         143
+  C:26F9H         LINE#         144
+  C:26F9H         LINE#         146
+  C:26F9H         LINE#         147
+  C:2700H         LINE#         149
+  C:2724H         LINE#         150
+  C:2746H         LINE#         151
+  C:275FH         LINE#         154
+  C:2783H         LINE#         155
+  C:27A5H         LINE#         156
+  C:27BEH         LINE#         159
+  C:27E2H         LINE#         160
+  C:2804H         LINE#         162
+  C:2813H         LINE#         164
+  C:2821H         LINE#         165
+  C:282AH         LINE#         166
+  C:282AH         LINE#         167
+  C:282DH         LINE#         170
+  C:2836H         LINE#         171
+  C:2839H         LINE#         172
+  C:283EH         LINE#         173
+  C:283EH         LINE#         174
+  C:283EH         LINE#         175
+  C:284AH         LINE#         177
+  C:2852H         LINE#         178
+  C:2855H         LINE#         179
+  C:2859H         LINE#         181
+  C:2864H         LINE#         182
+  C:2864H         LINE#         183
+  C:286CH         LINE#         184
+  C:2874H         LINE#         185
+  C:2876H         LINE#         187
+  C:289AH         LINE#         189
+  C:289AH         LINE#         192
+  -------         ENDDO         leds
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        MAIN
+
+  -------         MODULE        MAX
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.4       PUBLIC        T0
+  B:00B0H.5       PUBLIC        T1
+  C:2963H         PUBLIC        _ReadMax
+  B:00A8H.7       PUBLIC        EA
+  B:0090H.0       PUBLIC        T2
+  B:00C8H.0       PUBLIC        CAP2
+  B:00E8H.0       PUBLIC        I2CI
+  B:00D8H.4       PUBLIC        SCONV
+  B:00E8H.3       PUBLIC        I2CM
+  B:00A8H.6       PUBLIC        EADC
+  B:00D8H.7       PUBLIC        ADCI
+  C:2953H         PUBLIC        _WriteMax
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+  B:00C8H.1       PUBLIC        CNT2
+  B:00C0H.5       PUBLIC        PRE0
+  B:00A8H.4       PUBLIC        ES
+  B:00C0H.6       PUBLIC        PRE1
+  B:00B8H.6       PUBLIC        PADC
+  B:00C0H.7       PUBLIC        PRE2
+  B:0098H.0       PUBLIC        RI
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 14
+
+
+  B:00D0H.7       PUBLIC        CY
+  B:00B0H.2       PUBLIC        INT0
+  B:00F8H.2       PUBLIC        CPHA
+  B:00B0H.3       PUBLIC        INT1
+  B:0098H.1       PUBLIC        TI
+  B:00C0H.3       PUBLIC        WDR1
+  B:00C0H.2       PUBLIC        WDR2
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  B:00F8H.0       PUBLIC        SPR0
+  B:00F8H.1       PUBLIC        SPR1
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00F8H.3       PUBLIC        CPOL
+  B:00C8H.4       PUBLIC        TCLK
+  B:00F8H.6       PUBLIC        WCOL
+  B:00F8H.7       PUBLIC        ISPI
+  B:00F8H.4       PUBLIC        SPIM
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  B:00D8H.0       PUBLIC        CS0
+  B:00D8H.1       PUBLIC        CS1
+  B:00D8H.2       PUBLIC        CS2
+  B:00D8H.3       PUBLIC        CS3
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0098H.3       PUBLIC        TB8
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:00D8H.6       PUBLIC        DMA
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.3       PUBLIC        PT1
+  B:00E8H.6       PUBLIC        MDE
+  B:00D0H.4       PUBLIC        RS1
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00E8H.4       PUBLIC        MDI
+  B:00E8H.5       PUBLIC        MCO
+  B:00E8H.7       PUBLIC        MDO
+  B:00C0H.0       PUBLIC        WDE
+  B:00E8H.2       PUBLIC        I2CRS
+  D:0084H         PUBLIC        DPP
+  B:0098H.4       PUBLIC        REN
+  B:00F8H.5       PUBLIC        SPE
+  B:00E8H.1       PUBLIC        I2CTX
+  B:00C8H.3       PUBLIC        XEN
+  B:00B8H.7       PUBLIC        PSI
+  B:00C0H.1       PUBLIC        WDS
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 15
+
+
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  B:00D0H.5       PUBLIC        F0
+  B:00D0H.1       PUBLIC        F1
+  B:00D8H.5       PUBLIC        CCONV
+  -------         PROC          _WRITEMAX
+  D:0006H         SYMBOL        regnum
+  D:0005H         SYMBOL        val
+  C:2953H         LINE#         53
+  C:2953H         LINE#         54
+  -------         DO            val
+  D:0004H         SYMBOL        oldDPP
+  C:2953H         LINE#         55
+  C:2955H         LINE#         57
+  C:2958H         LINE#         58
+  C:295EH         LINE#         59
+  C:2962H         LINE#         60
+  -------         ENDDO         oldDPP
+  -------         ENDPROC       _WRITEMAX
+  -------         PROC          _READMAX
+  D:0006H         SYMBOL        regnum
+  C:2963H         LINE#         75
+  C:2963H         LINE#         76
+  -------         DO            regnum
+  D:0005H         SYMBOL        oldDPP
+  D:0004H         SYMBOL        val
+  C:2963H         LINE#         77
+  C:2965H         LINE#         78
+  C:2967H         LINE#         80
+  C:296AH         LINE#         81
+  C:2970H         LINE#         82
+  C:2974H         LINE#         83
+  C:2975H         LINE#         84
+  -------         ENDDO         val
+  -------         ENDPROC       _READMAX
+  -------         ENDMOD        MAX
+
+  -------         MODULE        SIO
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2981H         PUBLIC        RSio
+  C:2989H         PUBLIC        _Type
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.4       PUBLIC        T0
+  B:00B0H.5       PUBLIC        T1
+  B:00A8H.7       PUBLIC        EA
+  B:0090H.0       PUBLIC        T2
+  B:00C8H.0       PUBLIC        CAP2
+  B:00E8H.0       PUBLIC        I2CI
+  B:00D8H.4       PUBLIC        SCONV
+  B:00E8H.3       PUBLIC        I2CM
+  B:00A8H.6       PUBLIC        EADC
+  B:00D8H.7       PUBLIC        ADCI
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+  B:00C8H.1       PUBLIC        CNT2
+  B:00C0H.5       PUBLIC        PRE0
+  B:00A8H.4       PUBLIC        ES
+  B:00C0H.6       PUBLIC        PRE1
+  B:00B8H.6       PUBLIC        PADC
+  B:00C0H.7       PUBLIC        PRE2
+  B:0098H.0       PUBLIC        RI
+  B:00D0H.7       PUBLIC        CY
+  B:00B0H.2       PUBLIC        INT0
+  B:00F8H.2       PUBLIC        CPHA
+  B:00B0H.3       PUBLIC        INT1
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 16
+
+
+  B:0098H.1       PUBLIC        TI
+  C:2976H         PUBLIC        RSioStat
+  B:00C0H.3       PUBLIC        WDR1
+  B:00C0H.2       PUBLIC        WDR2
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  B:00F8H.0       PUBLIC        SPR0
+  B:00F8H.1       PUBLIC        SPR1
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00F8H.3       PUBLIC        CPOL
+  B:00C8H.4       PUBLIC        TCLK
+  D:0099H         PUBLIC        SBUF
+  D:0087H         PUBLIC        PCON
+  D:0098H         PUBLIC        SCON
+  D:0089H         PUBLIC        TMOD
+  D:0088H         PUBLIC        TCON
+  B:00F8H.6       PUBLIC        WCOL
+  B:00F8H.7       PUBLIC        ISPI
+  B:00F8H.4       PUBLIC        SPIM
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  B:00D8H.0       PUBLIC        CS0
+  B:00D8H.1       PUBLIC        CS1
+  B:00D8H.2       PUBLIC        CS2
+  B:00D8H.3       PUBLIC        CS3
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  D:008DH         PUBLIC        TH1
+  B:00A8H.2       PUBLIC        EX1
+  B:0098H.3       PUBLIC        TB8
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:00D8H.6       PUBLIC        DMA
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.3       PUBLIC        PT1
+  B:00E8H.6       PUBLIC        MDE
+  B:00D0H.4       PUBLIC        RS1
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00E8H.4       PUBLIC        MDI
+  B:00E8H.5       PUBLIC        MCO
+  B:00E8H.7       PUBLIC        MDO
+  B:00C0H.0       PUBLIC        WDE
+  C:29BDH         PUBLIC        _InitSIO
+  C:2979H         PUBLIC        _WSio
+  B:00E8H.2       PUBLIC        I2CRS
+  B:0098H.4       PUBLIC        REN
+  B:00F8H.5       PUBLIC        SPE
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 17
+
+
+  B:00E8H.1       PUBLIC        I2CTX
+  B:00C8H.3       PUBLIC        XEN
+  B:00B8H.7       PUBLIC        PSI
+  B:00C0H.1       PUBLIC        WDS
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  B:00D0H.5       PUBLIC        F0
+  B:00D0H.1       PUBLIC        F1
+  B:00D8H.5       PUBLIC        CCONV
+  -------         PROC          RSIOSTAT
+  C:2976H         LINE#         50
+  C:2976H         LINE#         51
+  C:2976H         LINE#         52
+  C:2978H         LINE#         53
+  -------         ENDPROC       RSIOSTAT
+  -------         PROC          _WSIO
+  D:0007H         SYMBOL        Sym
+  C:2979H         LINE#         65
+  C:2979H         LINE#         66
+  C:2979H         LINE#         67
+  C:297BH         LINE#         68
+  C:297DH         LINE#         69
+  C:2980H         LINE#         70
+  -------         ENDPROC       _WSIO
+  -------         PROC          RSIO
+  C:2981H         LINE#         81
+  C:2981H         LINE#         82
+  C:2981H         LINE#         83
+  C:2984H         LINE#         84
+  C:2986H         LINE#         85
+  C:2988H         LINE#         86
+  -------         ENDPROC       RSIO
+  -------         PROC          _TYPE
+  X:404FH         SYMBOL        Str
+  C:2989H         LINE#         98
+  C:2994H         LINE#         99
+  C:2994H         LINE#         100
+  C:29A4H         LINE#         101
+  C:29BCH         LINE#         102
+  -------         ENDPROC       _TYPE
+  -------         PROC          _INITSIO
+  D:0007H         SYMBOL        speed
+  B:0020H.4       SYMBOL        sdouble
+  C:29BDH         LINE#         117
+  C:29BDH         LINE#         118
+  C:29BDH         LINE#         119
+  C:29BFH         LINE#         120
+  C:29C2H         LINE#         122
+  C:29C5H         LINE#         123
+  C:29CAH         LINE#         125
+  C:29CDH         LINE#         127
+  C:29D0H         LINE#         128
+  C:29D3H         LINE#         129
+  C:29D5H         LINE#         130
+  -------         ENDPROC       _INITSIO
+  -------         ENDMOD        SIO
+
+  -------         MODULE        VECT
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  B:00D0H.6       PUBLIC        AC
+  B:00B0H.4       PUBLIC        T0
+  B:00B0H.5       PUBLIC        T1
+  B:00A8H.7       PUBLIC        EA
+  B:0090H.0       PUBLIC        T2
+  B:00C8H.0       PUBLIC        CAP2
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 18
+
+
+  B:00E8H.0       PUBLIC        I2CI
+  B:00D8H.4       PUBLIC        SCONV
+  B:00E8H.3       PUBLIC        I2CM
+  B:00A8H.6       PUBLIC        EADC
+  B:00D8H.7       PUBLIC        ADCI
+  C:29FCH         PUBLIC        _GetVect
+  B:00C8H.6       PUBLIC        EXF2
+  B:00B0H.7       PUBLIC        RD
+  B:00C8H.1       PUBLIC        CNT2
+  B:00C0H.5       PUBLIC        PRE0
+  B:00A8H.4       PUBLIC        ES
+  B:00C0H.6       PUBLIC        PRE1
+  B:00B8H.6       PUBLIC        PADC
+  B:00C0H.7       PUBLIC        PRE2
+  B:0098H.0       PUBLIC        RI
+  B:00D0H.7       PUBLIC        CY
+  B:00B0H.2       PUBLIC        INT0
+  B:00F8H.2       PUBLIC        CPHA
+  B:00B0H.3       PUBLIC        INT1
+  B:0098H.1       PUBLIC        TI
+  B:00C0H.3       PUBLIC        WDR1
+  B:00C0H.2       PUBLIC        WDR2
+  C:29D6H         PUBLIC        _SetVect
+  B:00B8H.4       PUBLIC        PS
+  B:0090H.1       PUBLIC        T2EX
+  B:00D0H.2       PUBLIC        OV
+  B:00F8H.0       PUBLIC        SPR0
+  B:00F8H.1       PUBLIC        SPR1
+  B:00B0H.6       PUBLIC        WR
+  B:00C8H.5       PUBLIC        RCLK
+  B:00F8H.3       PUBLIC        CPOL
+  B:00C8H.4       PUBLIC        TCLK
+  B:00F8H.6       PUBLIC        WCOL
+  B:00F8H.7       PUBLIC        ISPI
+  B:00F8H.4       PUBLIC        SPIM
+  B:0088H.1       PUBLIC        IE0
+  B:0088H.3       PUBLIC        IE1
+  B:00D8H.0       PUBLIC        CS0
+  B:00D8H.1       PUBLIC        CS1
+  B:00D8H.2       PUBLIC        CS2
+  B:00D8H.3       PUBLIC        CS3
+  B:00A8H.1       PUBLIC        ET0
+  B:00A8H.3       PUBLIC        ET1
+  B:0088H.5       PUBLIC        TF0
+  B:00A8H.5       PUBLIC        ET2
+  B:0088H.7       PUBLIC        TF1
+  B:00C8H.7       PUBLIC        TF2
+  B:0098H.2       PUBLIC        RB8
+  B:00A8H.0       PUBLIC        EX0
+  B:0088H.0       PUBLIC        IT0
+  B:00A8H.2       PUBLIC        EX1
+  B:0098H.3       PUBLIC        TB8
+  B:0088H.2       PUBLIC        IT1
+  B:00D0H.0       PUBLIC        P
+  B:0098H.7       PUBLIC        SM0
+  B:0098H.6       PUBLIC        SM1
+  B:00D8H.6       PUBLIC        DMA
+  B:0098H.5       PUBLIC        SM2
+  B:00B8H.1       PUBLIC        PT0
+  B:00D0H.3       PUBLIC        RS0
+  B:00B8H.3       PUBLIC        PT1
+  B:00E8H.6       PUBLIC        MDE
+  B:00D0H.4       PUBLIC        RS1
+  B:00B8H.5       PUBLIC        PT2
+  B:0088H.4       PUBLIC        TR0
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 19
+
+
+  B:0088H.6       PUBLIC        TR1
+  B:00C8H.2       PUBLIC        TR2
+  B:00B8H.0       PUBLIC        PX0
+  B:00B8H.2       PUBLIC        PX1
+  B:00E8H.4       PUBLIC        MDI
+  B:00E8H.5       PUBLIC        MCO
+  B:00E8H.7       PUBLIC        MDO
+  B:00C0H.0       PUBLIC        WDE
+  B:00E8H.2       PUBLIC        I2CRS
+  B:0098H.4       PUBLIC        REN
+  B:00F8H.5       PUBLIC        SPE
+  B:00E8H.1       PUBLIC        I2CTX
+  B:00C8H.3       PUBLIC        XEN
+  B:00B8H.7       PUBLIC        PSI
+  B:00C0H.1       PUBLIC        WDS
+  B:00B0H.0       PUBLIC        RXD
+  B:00B0H.1       PUBLIC        TXD
+  B:00D0H.5       PUBLIC        F0
+  B:00D0H.1       PUBLIC        F1
+  B:00D8H.5       PUBLIC        CCONV
+  -------         PROC          _SETVECT
+  D:0007H         SYMBOL        num
+  D:0004H         SYMBOL        handler
+  C:29D6H         LINE#         57
+  C:29D6H         LINE#         58
+  -------         DO            handler
+  D:0006H         SYMBOL        p
+  C:29D6H         LINE#         59
+  C:29E3H         LINE#         61
+  C:29F2H         LINE#         62
+  C:29FBH         LINE#         63
+  -------         ENDDO         p
+  -------         ENDPROC       _SETVECT
+  -------         PROC          _GETVECT
+  D:0007H         SYMBOL        num
+  C:29FCH         LINE#         76
+  C:29FCH         LINE#         77
+  -------         DO            num
+  D:0006H         SYMBOL        p
+  C:29FCH         LINE#         78
+  C:2A09H         LINE#         80
+  C:2A12H         LINE#         81
+  -------         ENDDO         p
+  -------         ENDPROC       _GETVECT
+  -------         ENDMOD        VECT
+
+  -------         MODULE        EEPROM
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2B19H         PUBLIC        _ReadBlockEEPROM
+  C:2A13H         PUBLIC        _WriteBlockEEPROM
+  -------         PROC          _WRITEBLOCKEEPROM
+  X:404FH         SYMBOL        address
+  X:4050H         SYMBOL        buf
+  D:0003H         SYMBOL        length
+  C:2A13H         LINE#         58
+  C:2A1EH         LINE#         59
+  -------         DO            length
+  X:4052H         SYMBOL        try
+  X:4054H         SYMBOL        pages
+  X:4055H         SYMBOL        i
+  X:4056H         SYMBOL        remainder
+  C:2A1EH         LINE#         63
+  C:2A34H         LINE#         64
+  C:2A34H         LINE#         65
+  C:2A36H         LINE#         66
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 20
+
+
+  C:2A36H         LINE#         68
+  C:2A40H         LINE#         69
+  C:2A47H         LINE#         71
+  C:2A57H         LINE#         72
+  C:2A57H         LINE#         73
+  C:2A5EH         LINE#         74
+  C:2A65H         LINE#         75
+  C:2A65H         LINE#         76
+  C:2A7AH         LINE#         77
+  C:2A7AH         LINE#         78
+  C:2A7CH         LINE#         79
+  C:2A7CH         LINE#         80
+  C:2A7CH         LINE#         82
+  C:2AADH         LINE#         83
+  C:2AADH         LINE#         84
+  C:2AAFH         LINE#         85
+  C:2AAFH         LINE#         86
+  C:2AB7H         LINE#         88
+  C:2ABDH         LINE#         89
+  C:2ABDH         LINE#         90
+  C:2AC4H         LINE#         91
+  C:2ACBH         LINE#         92
+  C:2ACBH         LINE#         93
+  C:2AE0H         LINE#         94
+  C:2AE0H         LINE#         95
+  C:2AE2H         LINE#         96
+  C:2AE2H         LINE#         97
+  C:2AE2H         LINE#         99
+  C:2B15H         LINE#         100
+  C:2B15H         LINE#         101
+  C:2B17H         LINE#         102
+  C:2B17H         LINE#         103
+  C:2B17H         LINE#         105
+  C:2B18H         LINE#         106
+  -------         ENDDO         remainder
+  -------         ENDPROC       _WRITEBLOCKEEPROM
+  -------         PROC          _READBLOCKEEPROM
+  X:404FH         SYMBOL        address
+  X:4050H         SYMBOL        buf
+  X:4052H         SYMBOL        length
+  C:2B19H         LINE#         123
+  C:2B27H         LINE#         124
+  -------         DO            length
+  X:4053H         SYMBOL        try
+  C:2B27H         LINE#         127
+  C:2B3FH         LINE#         129
+  C:2B46H         LINE#         130
+  C:2B4DH         LINE#         131
+  C:2B4DH         LINE#         132
+  C:2B62H         LINE#         133
+  C:2B64H         LINE#         134
+  C:2B64H         LINE#         136
+  C:2B7CH         LINE#         137
+  C:2B7CH         LINE#         138
+  C:2B7EH         LINE#         139
+  C:2B7EH         LINE#         141
+  C:2B7FH         LINE#         142
+  -------         ENDDO         try
+  -------         ENDPROC       _READBLOCKEEPROM
+  -------         ENDMOD        EEPROM
+
+  -------         MODULE        RTC
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2B80H         PUBLIC        _GetTime
+  C:2C64H         PUBLIC        _SetTime
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 21
+
+
+  -------         PROC          _GETTIME
+  X:404FH         SYMBOL        time
+  C:2B80H         LINE#         79
+  C:2B88H         LINE#         80
+  -------         DO            time
+  D:0006H         SYMBOL        h
+  C:2B88H         LINE#         83
+  C:2B8FH         LINE#         84
+  C:2B91H         LINE#         86
+  C:2BA8H         LINE#         87
+  C:2BAAH         LINE#         89
+  C:2BC8H         LINE#         90
+  C:2BE0H         LINE#         91
+  C:2C06H         LINE#         92
+  C:2C1FH         LINE#         94
+  C:2C24H         LINE#         95
+  C:2C24H         LINE#         96
+  C:2C2AH         LINE#         97
+  C:2C40H         LINE#         99
+  C:2C50H         LINE#         100
+  C:2C52H         LINE#         102
+  C:2C62H         LINE#         104
+  C:2C63H         LINE#         105
+  -------         ENDDO         h
+  -------         ENDPROC       _GETTIME
+  -------         PROC          _SETTIME
+  X:404FH         SYMBOL        time
+  C:2C64H         LINE#         120
+  C:2C6CH         LINE#         121
+  -------         DO            time
+  X:4051H         SYMBOL        h
+  X:4052H         SYMBOL        t
+  C:2C6CH         LINE#         125
+  C:2C73H         LINE#         126
+  C:2C75H         LINE#         128
+  C:2C98H         LINE#         129
+  C:2CB4H         LINE#         130
+  C:2CD1H         LINE#         131
+  C:2CF8H         LINE#         133
+  C:2D0BH         LINE#         134
+  C:2D0DH         LINE#         136
+  C:2D0EH         LINE#         137
+  -------         ENDDO         t
+  -------         ENDPROC       _SETTIME
+  -------         ENDMOD        RTC
+
+  -------         MODULE        BUZZ
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  C:2D0FH         PUBLIC        Buzz
+  -------         PROC          BUZZ
+  C:2D0FH         LINE#         47
+  C:2D0FH         LINE#         48
+  -------         DO            BUZZ
+  X:404FH         SYMBOL        i
+  X:4050H         SYMBOL        dur
+  C:2D0FH         LINE#         52
+  C:2D16H         LINE#         53
+  C:2D16H         LINE#         54
+  C:2D1FH         LINE#         55
+  C:2D2EH         LINE#         56
+  C:2D37H         LINE#         57
+  C:2D46H         LINE#         58
+  C:2D63H         LINE#         60
+  -------         ENDDO         dur
+  -------         ENDPROC       BUZZ
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 22
+
+
+  -------         ENDMOD        BUZZ
+
+  -------         MODULE        KB
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  X:4038H         PUBLIC        KBTable
+  C:2D64H         PUBLIC        _ScanKBOnce
+  -------         PROC          _SCANKBONCE
+  X:404FH         SYMBOL        ch
+  C:2D64H         LINE#         61
+  C:2D6FH         LINE#         62
+  -------         DO            ch
+  X:4052H         SYMBOL        row
+  D:0005H         SYMBOL        col
+  X:4053H         SYMBOL        rownum
+  X:4054H         SYMBOL        colnum
+  D:0006H         SYMBOL        i
+  C:2D6FH         LINE#         68
+  C:2D81H         LINE#         69
+  C:2D81H         LINE#         70
+  C:2D8DH         LINE#         72
+  C:2D96H         LINE#         76
+  C:2D9BH         LINE#         77
+  C:2D9BH         LINE#         78
+  C:2DB6H         LINE#         79
+  C:2DB8H         LINE#         80
+  C:2DB8H         LINE#         81
+  C:2DC5H         LINE#         84
+  C:2DE0H         LINE#         85
+  C:2DE2H         LINE#         86
+  C:2DE2H         LINE#         87
+  C:2E06H         LINE#         88
+  C:2E08H         LINE#         89
+  C:2E08H         LINE#         91
+  C:2E08H         LINE#         92
+  C:2E14H         LINE#         94
+  C:2E1DH         LINE#         96
+  C:2E1EH         LINE#         97
+  -------         ENDDO         i
+  -------         ENDPROC       _SCANKBONCE
+  -------         ENDMOD        KB
+
+  -------         MODULE        ?C?CLDPTR
+  C:2E1FH         PUBLIC        ?C?CLDPTR
+  -------         ENDMOD        ?C?CLDPTR
+
+  -------         MODULE        ?C?CSTPTR
+  C:2E38H         PUBLIC        ?C?CSTPTR
+  -------         ENDMOD        ?C?CSTPTR
+
+  -------         MODULE        ?C?IILDX
+  C:2E4AH         PUBLIC        ?C?IILDX
+  -------         ENDMOD        ?C?IILDX
+
+  -------         MODULE        ?C?ILDIX
+  C:2E60H         PUBLIC        ?C?ILDIX
+  -------         ENDMOD        ?C?ILDIX
+
+  -------         MODULE        ?C?SLCMP
+  C:2E76H         PUBLIC        ?C?SLCMP
+  -------         ENDMOD        ?C?SLCMP
+
+*** WARNING 16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?LCD_SWITCHCURSOR?LCD
+
+*** WARNING 16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+L51 LINKER/LOCATOR V3.52                                                                11/04/02  17:23:53  PAGE 23
+
+
+    SEGMENT: ?PR?_SETVECT?VECT
+
+*** WARNING 16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?_GETVECT?VECT
+
+LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
