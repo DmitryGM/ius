@@ -1,15 +1,15 @@
 # ---------------------------------------------------------------------------
-# Имя проекта
+# РРјСЏ РїСЂРѕРµРєС‚Р°
 
 NAME	= test_dac
 
-# Настройки компилятора и линкера
+# РќР°СЃС‚СЂРѕР№РєРё РєРѕРјРїРёР»СЏС‚РѕСЂР° Рё Р»РёРЅРєРµСЂР°
 
 CC      = sdcc
 CFLAGS  = -I./INCLUDE -c --stack-auto
-LFLAGS  = --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0x80 
+LFLAGS  = --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0x80
 
-# Настройки системы автоинкремента версии сборки
+# РќР°СЃС‚СЂРѕР№РєРё СЃРёСЃС‚РµРјС‹ Р°РІС‚РѕРёРЅРєСЂРµРјРµРЅС‚Р° РІРµСЂСЃРёРё СЃР±РѕСЂРєРё
 
 PROJECT  = $(shell cat PROJECT)
 VERSION  = $(shell cat VERSION)
@@ -19,14 +19,14 @@ TYPE     = $(shell cat TYPE)
 PROJNAME = ${PROJECT}-${VERSION}-${BUILD}-${TYPE}
 TARBALL  = ${PROJNAME}.tar
 
-# Настройки M3P
+# РќР°СЃС‚СЂРѕР№РєРё M3P
 
 M3P		 = m3p
 COMPORT	 = /dev/ttyS0
 COMLOG	 = $(COMPORT)_log.txt
-BAUD	 = 9600	
+BAUD	 = 9600
 
-# Каталоги с исходными текстами
+# РљР°С‚Р°Р»РѕРіРё СЃ РёСЃС…РѕРґРЅС‹РјРё С‚РµРєСЃС‚Р°РјРё
 
 SRC_DIR = SRC
 # ---------------------------------------------------------------------------
@@ -46,7 +46,7 @@ clean:
 			$(SRC_DIR)/*.rel \
 			$(SRC_DIR)/*.rst \
 			$(SRC_DIR)/*.sym \
-			$(SRC_DIR)/*.lst 
+			$(SRC_DIR)/*.lst
 
 load:
 	$(M3P) lfile load.m3p
@@ -64,7 +64,7 @@ LIST_SRC = \
 $(SRC_DIR)/adc.c \
 $(SRC_DIR)/dac.c \
 $(SRC_DIR)/sio.c \
-$(SRC_DIR)/test_dac.c 
+$(SRC_DIR)/test_dac.c
 
 LIST_OBJ = $(LIST_SRC:.c=.rel)
 
@@ -74,4 +74,4 @@ test_dac : $(LIST_OBJ) makefile
 
 
 $(LIST_OBJ) : %.rel : %.c makefile
-	$(CC) -c $(CFLAGS) $< -o $@  
+	$(CC) -c $(CFLAGS) $< -o $@
