@@ -57,52 +57,52 @@ uchar length - длина блока. length + address не должно пре�
 ----------------------------------------------------------------------------- */
 bit WriteBlockEEPROM(unsigned char address, unsigned char xdata *buf, unsigned char length)
 {
-unsigned short try;
-unsigned char pages, i, remainder;
+    unsigned short try;
+    unsigned char pages, i, remainder;
 
-if((address + length) > EEPROM_SIZE) 
-{
-return 1;
-}
+    if((address + length) > EEPROM_SIZE)
+    {
+        return 1;
+    }
 
-pages = length / 8;
-remainder = length % 8;
+    pages = length / 8;
+    remainder = length % 8;
 
-for(i = 0; i < pages; ++i)
-{
-try = 0;
-while(!GetAck(EEPROM_ADDRESS))
-{
-if(++try > 5000)
-{
-return 1; //EEPROM failed to respond
-}
-}
+    for(i = 0; i < pages; ++i)
+    {
+        try = 0;
+        while(!GetAck(EEPROM_ADDRESS))
+        {
+            if(++try > 5000)
+            {
+                return 1; //EEPROM failed to respond
+            }
+        }
 
-if( TransmitBlock(EEPROM_ADDRESS, address + (i<<3), buf + (i<<3), 8) )
-{
-return 1; //Error writing
-}
-}
+        if( TransmitBlock(EEPROM_ADDRESS, address + (i<<3), buf + (i<<3), 8) )
+        {
+            return 1; //Error writing
+        }
+    }
 
-if( remainder )
-{
-try = 0;
-while(!GetAck(EEPROM_ADDRESS))
-{
-if(++try > 5000)
-{
-return 1; //EEPROM failed to respond
-}
-}
+    if( remainder )
+    {
+    try = 0;
+        while(!GetAck(EEPROM_ADDRESS))
+        {
+            if(++try > 5000)
+            {
+                return 1; //EEPROM failed to respond
+            }
+        }
 
-if( TransmitBlock(EEPROM_ADDRESS, address + (i<<3), buf + (i<<3), remainder) )
-{
-return 1; //Error writing
-}
-}
+        if( TransmitBlock(EEPROM_ADDRESS, address + (i<<3), buf + (i<<3), remainder) )
+        {
+            return 1; //Error writing
+        }
+    }
 
-return 0;
+    return 0;
 }
 
 
@@ -122,23 +122,23 @@ uchar length - длина блока. length + address не должно пре�
 ----------------------------------------------------------------------------- */
 bit ReadBlockEEPROM(unsigned char address, unsigned char xdata *buf, unsigned char length)
 {
-unsigned short try;
+    unsigned short try;
 
-if((address + length) > EEPROM_SIZE) return 1;
+    if((address + length) > EEPROM_SIZE) return 1;
 
-try = 0;
-while(!GetAck(EEPROM_ADDRESS))
-{
-if(++try > 5000) // >10 мс
-return 1; //EEPROM failed to respond
-}
+    try = 0;
+    while(!GetAck(EEPROM_ADDRESS))
+    {
+        if(++try > 5000) // >10 мс
+        return 1; //EEPROM failed to respond
+    }
 
-if( ReceiveBlock(EEPROM_ADDRESS, address, buf, length) )
-{
-return 1; //Error writing
-}
+    if( ReceiveBlock(EEPROM_ADDRESS, address, buf, length) )
+    {
+        return 1; //Error writing
+    }
 
-return 0;
+    return 0;
 }
 
 

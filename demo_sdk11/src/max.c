@@ -52,11 +52,11 @@ val - записываемое значение
 -----------------------------------------------------------------------------*/
 void WriteMax(unsigned char xdata *regnum, unsigned char val)
 {
-unsigned char oldDPP=DPP;
+    unsigned char oldDPP = DPP;
 
-DPP=MAXBASE;
-*regnum=val;
-DPP=oldDPP;
+    DPP = MAXBASE;
+    *regnum = val;
+    DPP = oldDPP;
 }
 
 /**----------------------------------------------------------------------------
@@ -74,11 +74,11 @@ ReadMax
 -----------------------------------------------------------------------------*/
 unsigned char ReadMax(unsigned char xdata *regnum)
 {
-unsigned char oldDPP=DPP;
-unsigned char val=0;
+    unsigned char oldDPP = DPP;
+    unsigned char val = 0;
 
-DPP=MAXBASE;
-val=*regnum;
-DPP=oldDPP;
-return val;
+    DPP = MAXBASE;
+    val = *regnum;
+    DPP = oldDPP;
+    return val;
 }

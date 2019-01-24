@@ -116,14 +116,14 @@ Stop()
 ----------------------------------------------------------------------------- */
 static void Stop(void)
 {
-MDE=1;//Output
-MCO=0;
-MDO=0;
-MCO=1;
-Delay();
-MDO=1;
-Delay();
-MDE=0;//Input (release line)
+    MDE=1;//Output
+    MCO=0;
+    MDO=0;
+    MCO=1;
+    Delay();
+    MDO=1;
+    Delay();
+    MDE=0;//Input (release line)
 }
 
 
@@ -154,12 +154,12 @@ Ack()
 ----------------------------------------------------------------------------- */
 static void Ack(void)//Sends ack
 {
-MDE=1; //Output
-MCO=0;
-MDO=0;
-MCO=1;
-Delay();
-MCO=0;
+    MDE=1; //Output
+    MCO=0;
+    MDO=0;
+    MCO=1;
+    Delay();
+    MCO=0;
 }
 
 /**----------------------------------------------------------------------------
@@ -173,12 +173,12 @@ Nack()
 ----------------------------------------------------------------------------- */
 static void Nack(void)//Sends NAck
 {
-MDE=1;
-MCO=0;
-MDO=1;
-MCO=1;
-Delay();
-MCO=0;
+    MDE=1;
+    MCO=0;
+    MDO=1;
+    MCO=1;
+    Delay();
+    MCO=0;
 }
 
 /**----------------------------------------------------------------------------
@@ -193,11 +193,11 @@ GetAck()
 ----------------------------------------------------------------------------- */
 bit GetAck(unsigned char address) //Returns 1 if there was an ACK
 {
-I2CM=1; //I2C Master mode
-if( Begin(address&0xFE) ){Stop();return 0;}
-Stop();
+    I2CM=1; //I2C Master mode
+    if( Begin(address&0xFE) ){Stop();return 0;}
+    Stop();
 
-return 1;
+    return 1;
 }
 
 
@@ -212,20 +212,20 @@ RecvByte()
 ----------------------------------------------------------------------------- */
 unsigned char RecvByte(void)
 {
-char cnt;
-unsigned char ch=0;
+    char cnt;
+    unsigned char ch=0;
 
-MDE=0;//Input
-MCO=0;
-for(cnt=0; cnt<8; cnt++)
-{
-ch<<=1;
-MCO=1;
-Delay();
-ch|=MDI;
-MCO=0;
-}
-return ch;
+    MDE=0;//Input
+    MCO=0;
+    for(cnt=0; cnt<8; cnt++)
+    {
+        ch<<=1;
+        MCO=1;
+        Delay();
+        ch|=MDI;
+        MCO=0;
+    }
+    return ch;
 }
 
 /**----------------------------------------------------------------------------
@@ -246,35 +246,35 @@ uchar len - длина принимаемого блока.
 ----------------------------------------------------------------------------- */
 bit ReceiveBlock(unsigned char address, unsigned char addr, unsigned char xdata * block,unsigned char len)
 { //addr - address in target
-unsigned char l,ch;
+    unsigned char l,ch;
 
-I2CM=1; //I2C Master mode
-address=(address&0xFE); //Write
+    I2CM=1; //I2C Master mode
+    address=(address&0xFE); //Write
 
-if(Begin(address)){Stop();return 1;}//Error - No ACK
-if(SendByte(addr)){Stop();return 1;}
-Delay();
-Delay();
+    if(Begin(address)){Stop();return 1;}//Error - No ACK
+    if(SendByte(addr)){Stop();return 1;}
+    Delay();
+    Delay();
 
-address=(address|1);//Read
-if(Begin(address)) {Stop();return 1;}
-Delay();
+    address=(address|1);//Read
+    if(Begin(address)) {Stop();return 1;}
+    Delay();
 
-if(len-1)
-{
-for(l=0;l<(len-1);l++)
-{
-ch=RecvByte();
-Ack();
-*block++=ch;
-}
-}
+    if(len-1)
+    {
+        for(l=0;l<(len-1);l++)
+        {
+            ch=RecvByte();
+            Ack();
+            *block++=ch;
+        }
+    }
 
-ch=RecvByte();
-Nack();
-*block=ch;
-Stop();
-return 0;
+    ch=RecvByte();
+    Nack();
+    *block=ch;
+    Stop();
+    return 0;
 }
 
 /**----------------------------------------------------------------------------
@@ -296,18 +296,18 @@ uchar len - длина записываемого блока.
 ----------------------------------------------------------------------------- */
 bit TransmitBlock(unsigned char address, unsigned char addr, unsigned char xdata * block,unsigned char len)
 { //addr - address in target
-unsigned char ch,l;
+    unsigned char ch,l;
 
-I2CM=1; //I2C Master mode
-address=(address&0xFE); //Write
-if(Begin(address)) {Stop();return 1;}//Error - no Ack
-if(SendByte(addr)) {Stop();return 1;}
+    I2CM=1; //I2C Master mode
+    address=(address&0xFE); //Write
+    if(Begin(address)) {Stop();return 1;}//Error - no Ack
+    if(SendByte(addr)) {Stop();return 1;}
 
-for(l=0; l<len; l++,block++)
-{
-ch=*block;
-if(SendByte(ch)){ Stop(); return 1;}//Not to the end of the block
-}
-Stop();
-return 0;
+    for(l=0; l<len; l++,block++)
+    {
+        ch=*block;
+        if(SendByte(ch)){ Stop(); return 1;}//Not to the end of the block
+    }
+    Stop();
+    return 0;
 }

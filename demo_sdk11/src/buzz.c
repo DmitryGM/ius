@@ -51,10 +51,10 @@ unsigned short dur;
 
 for(dur = 0; dur < 500; dur++)
 {
-WriteMax(ENA,0x24);
-for(i=0; i < 2; i++)continue;
-WriteMax(ENA,0x20);
-for(i=0; i < 2; i++)continue;
+    WriteMax(ENA,0x24);
+    for(i=0; i < 2; i++) continue;
+    WriteMax(ENA,0x20);
+    for(i=0; i < 2; i++) continue;
 }
 
 }

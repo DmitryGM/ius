@@ -56,10 +56,10 @@ void code* handler - указатель на процедуру обработк
 ----------------------------------------------------------------------------- */
 void SetVect(unsigned char num, void code * handler)
 {
-unsigned char xdata * p = RAM_TABLE + (num << 3) + 3;
+    unsigned char xdata * p = RAM_TABLE + (num << 3) + 3;
 
-*p++ = LJMP;
-*(unsigned short xdata *)p = (unsigned short)handler;
+    *p++ = LJMP;
+    *(unsigned short xdata *)p = (unsigned short)handler;
 }
 
 /**----------------------------------------------------------------------------
@@ -75,8 +75,8 @@ GetVect()
 ----------------------------------------------------------------------------- */
 void code * GetVect(unsigned char num)
 {
-unsigned short xdata * p = RAM_TABLE + (num << 3) + 3 + 1;
+    unsigned short xdata * p = RAM_TABLE + (num << 3) + 3 + 1;
 
-return (void code *)(*p);
+    return (void code *)(*p);
 }
 

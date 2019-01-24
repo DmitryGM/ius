@@ -68,125 +68,125 @@ main()
 ----------------------------------------------------------------------------- */
 void main(void)
 {
-unsigned short i, p;
-unsigned char ch, leds;
+    unsigned short i, p;
+    unsigned char ch, leds;
 
-//----------Инициализация-----------
-InitLCD(); 
-InitSIO(S9600, 0);
-Type("Hello!\r\n");
+    //----------Инициализация-----------
+    InitLCD();
+    InitSIO(S9600, 0);
+    Type("Hello!\r\n");
 
-//----------Пьезоизлучатель---------
-Buzz();
-
-
-//----------EEPROM, ЖКИ-------------
-for(i = 0; i < 50; i++) //Подготовка буфера для записи в
-buffer[i] = (unsigned char)(~i);//EEPROM
-
-LCD_Clear();
-LCD_Type(" EEPROM ");
-LCD_GotoXY(0,1);
-
-if( WriteBlockEEPROM(0, buffer, 29) ) //Попытка записи
-LCD_Type("Write error!"); 
-else
-LCD_Type("Write OK");
-
-for(i = 0; i < 65000; i++); //Задержка для интерпретации изображения на
-//ЖКИ
-
-LCD_GotoXY(0,1);
-if( ReadBlockEEPROM(0, buffer, 29) ) //Попытка чтения
-LCD_Type("Read error!");
-else
-{
-for(i = 0; i < 29; i++) //Чтение успешно - проверка
-if( buffer[i] != (unsigned char)(~i) )
-{
-LCD_Type("Check error!"); 
-break;
-}
-
-if(i == 29) LCD_Type("Check OK"); 
-}
-
-for(i = 0; i < 60000; i++) //Задержка, при необходимости прерываемая
-if(RSioStat()) //нажатием клавиши в терминале ПК
-{
-RSio(); break;
-}
+    //----------Пьезоизлучатель---------
+    Buzz();
 
 
-//----------Часы реального времени--
+    //----------EEPROM, ЖКИ-------------
+    for(i = 0; i < 50; i++) //Подготовка буфера для записи в
+        buffer[i] = (unsigned char)(~i);//EEPROM
 
-if(SetTime(&time)) //Попытка установки определенного времени
-Type("Clock setting failed!\r\n");
+    LCD_Clear();
+    LCD_Type(" EEPROM ");
+    LCD_GotoXY(0,1);
 
-LCD_Clear();
-LCD_Type(" Clock ");
+    if( WriteBlockEEPROM(0, buffer, 29) ) //Попытка записи
+        LCD_Type("Write error!");
+    else
+        LCD_Type("Write OK");
 
-while(1) //Вывод в цикле текущего времени на ЖКИ и терминал ПК
-{
-if(RSioStat()) //Цикл прерывается нажатием клавиши на терминале ПК
-{
-RSio(); break;
-}
+    for(i = 0; i < 65000; i++); //Задержка для интерпретации изображения на
+    //ЖКИ
 
-Type("Current time: ");
-LCD_GotoXY(0,1);
+    LCD_GotoXY(0,1);
+    if( ReadBlockEEPROM(0, buffer, 29) ) //Попытка чтения
+        LCD_Type("Read error!");
+    else
+    {
+        for(i = 0; i < 29; i++) //Чтение успешно - проверка
+            if( buffer[i] != (unsigned char)(~i) )
+            {
+                LCD_Type("Check error!");
+                break;
+            }
 
-if( GetTime(&time) )
-{
-LCD_Type("Error!");
-Type("failed to retrieve!\r\n");
-break;
-}
-else
-{
-i = 0;
-//Hours
-buffer[i++] = (time.hour / 10) + '0';
-buffer[i++] = (time.hour % 10) + '0';
-buffer[i++] = ':';
+            if(i == 29) LCD_Type("Check OK");
+    }
 
-//Minutes
-buffer[i++] = (time.min / 10) + '0';
-buffer[i++] = (time.min % 10) + '0';
-buffer[i++] = ':';
+    for(i = 0; i < 60000; i++) //Задержка, при необходимости прерываемая
+        if(RSioStat()) //нажатием клавиши в терминале ПК
+        {
+            RSio(); break;
+        }
 
-//Seconds
-buffer[i++] = (time.sec / 10) + '0';
-buffer[i++] = (time.sec % 10) + '0';
 
-buffer[i] = '\0';
+    //----------Часы реального времени--
 
-Type(buffer); WSio(13);
-LCD_Type(buffer);
-}
-} 
+    if(SetTime(&time)) //Попытка установки определенного времени
+        Type("Clock setting failed!\r\n");
 
-//----------Клавиатура, светодиоды--
-Type("\r\nReading keyboard\r\n");
-LCD_Clear();
-leds = 0;
-while(1) //Вывод в бесконечном цикле нажатых на клавиатуре SDK-1.1
-{ //клавиш на ЖКИ и терминал ПК
-WriteMax(LEDLINE, leds); //Единичка в соответствующем бите зажигает
-//светодиод, нолик - гасит
-leds <<= 1;
-if( !(leds & 0x80) )
-leds |= 1;
+    LCD_Clear();
+    LCD_Type(" Clock ");
 
-if( ScanKBOnce(&ch) )
-{
-WSio(ch);
-LCD_Putch(ch);
-}
-else
-for(i = 0; i < 2000; i++); //Задержка, регулирующая скорость 
-//изменения состояния светодиодов
-}
+    while(1) //Вывод в цикле текущего времени на ЖКИ и терминал ПК
+    {
+        if(RSioStat()) //Цикл прерывается нажатием клавиши на терминале ПК
+        {
+            RSio(); break;
+        }
+
+        Type("Current time: ");
+        LCD_GotoXY(0,1);
+
+        if( GetTime(&time) )
+        {
+            LCD_Type("Error!");
+            Type("failed to retrieve!\r\n");
+            break;
+        }
+        else
+        {
+            i = 0;
+            //Hours
+            buffer[i++] = (time.hour / 10) + '0';
+            buffer[i++] = (time.hour % 10) + '0';
+            buffer[i++] = ':';
+
+            //Minutes
+            buffer[i++] = (time.min / 10) + '0';
+            buffer[i++] = (time.min % 10) + '0';
+            buffer[i++] = ':';
+
+            //Seconds
+            buffer[i++] = (time.sec / 10) + '0';
+            buffer[i++] = (time.sec % 10) + '0';
+
+            buffer[i] = '\0';
+
+            Type(buffer); WSio(13);
+            LCD_Type(buffer);
+        }
+    }
+
+    //----------Клавиатура, светодиоды--
+    Type("\r\nReading keyboard\r\n");
+    LCD_Clear();
+    leds = 0;
+    while(1) //Вывод в бесконечном цикле нажатых на клавиатуре SDK-1.1
+    { //клавиш на ЖКИ и терминал ПК
+        WriteMax(LEDLINE, leds); //Единичка в соответствующем бите зажигает
+        //светодиод, нолик - гасит
+        leds <<= 1;
+        if( !(leds & 0x80) )
+            leds |= 1;
+
+        if( ScanKBOnce(&ch) )
+        {
+            WSio(ch);
+            LCD_Putch(ch);
+        }
+        else
+            for(i = 0; i < 2000; i++); //Задержка, регулирующая скорость
+        //изменения состояния светодиодов
+    }
 
 
 }

@@ -65,7 +65,7 @@ o = 0 - выключить контроль
 ----------------------------------------------------------------------------- */
 void SwitchCurPosControl(bit o)
 {
-CurPosCtrl=o;
+    CurPosCtrl=o;
 }
 
 /**----------------------------------------------------------------------------
@@ -87,13 +87,13 @@ Strobe()
 ----------------------------------------------------------------------------- */
 void Strobe(char c)
 {
-unsigned int i;
+    unsigned int i;
 
-WriteMax(C_IND,c | 0x1); //Установка строба E
-WriteMax(C_IND,c & 0xFE); //Сброс строба
+    WriteMax(C_IND,c | 0x1); //Установка строба E
+    WriteMax(C_IND,c & 0xFE); //Сброс строба
 
-for (i=0;i<300;i++)continue; //Задержка на время исполнения команды 
-//(>1.59ms)
+    for (i=0;i<300;i++)continue; //Задержка на время исполнения команды
+    //(>1.59ms)
 
 }
 
@@ -112,14 +112,14 @@ bit blink: 1 - включить мигание,
 ----------------------------------------------------------------------------- */
 void LCD_SwitchCursor(bit cursor, bit blink)
 {
-unsigned char i=0;
+    unsigned char i=0;
 
-WriteMax( DATA_IND, DISPLAY_CTRL |
-DISPLAY_ON |
-((cursor)?CURSOR_ON:0) |
-((blink)?BLINK:0) );
+    WriteMax( DATA_IND, DISPLAY_CTRL |
+    DISPLAY_ON |
+    ((cursor)?CURSOR_ON:0) |
+    ((blink)?BLINK:0) );
 
-Strobe(0x8); //R/W = 0; RS = 0
+    Strobe(0x8); //R/W = 0; RS = 0
 
 }
 
@@ -135,13 +135,13 @@ LCD_Clear()
 ----------------------------------------------------------------------------- */
 void LCD_Clear(void)
 {
-int i;
+    int i;
 
-WriteMax(DATA_IND, CLEAR);
-Strobe(0x8); //clear
-cur_x = 0;
-cur_y = 0;
-// for(i=0; i<1600; i++)continue;
+    WriteMax(DATA_IND, CLEAR);
+    Strobe(0x8); //clear
+    cur_x = 0;
+    cur_y = 0;
+    // for(i=0; i<1600; i++)continue;
 }
 
 
@@ -156,44 +156,44 @@ InitLCD()
 ----------------------------------------------------------------------------- */
 void InitLCD(void)
 {
-unsigned short i;
+    unsigned short i;
 
-for(i=0; i<4000; i++)continue; //Ожидание включения ЖКИ (>15мс после подачи 
-//питания)
-// cmd = 0x30; //
-WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
-Strobe(0x8);
-for(i=0; i<1500; i++)continue; //Ожидание, предусмотренное протоколом
-//инициализации (>4.1мс)
-// cmd = 0x30; //
+    for(i=0; i<4000; i++) continue; //Ожидание включения ЖКИ (>15мс после подачи
+    //питания)
+    // cmd = 0x30; //
+    WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
+    Strobe(0x8);
+    for(i=0; i<1500; i++) continue; //Ожидание, предусмотренное протоколом
+    //инициализации (>4.1мс)
+    // cmd = 0x30; //
 
-WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
-Strobe(0x8);
-for(i=0; i<50; i++)continue; //Ожидание, предусмотренное протоколом
-//инициализации (>4.1мс)
-// cmd = 0x30; //
-WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
-Strobe(0x8);
-// for(i=0; i<100; i++)continue;
+    WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
+    Strobe(0x8);
+    for(i=0; i<50; i++) continue; //Ожидание, предусмотренное протоколом
+    //инициализации (>4.1мс)
+    // cmd = 0x30; //
+    WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS);
+    Strobe(0x8);
+    // for(i=0; i<100; i++)continue;
 
-// cmd = 0x38; //
-WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS|TWO_LINE);
-Strobe(0x8);
+    // cmd = 0x38; //
+    WriteMax(DATA_IND, FUNCTION_SET|EIGHT_BITS|TWO_LINE);
+    Strobe(0x8);
 
-// cmd = 0x08; //
-WriteMax(DATA_IND, DISPLAY_CTRL); //Display off
-Strobe(0x8);
+    // cmd = 0x08; //
+    WriteMax(DATA_IND, DISPLAY_CTRL); //Display off
+    Strobe(0x8);
 
-// cmd = 0x01; //
-WriteMax(DATA_IND, CLEAR); 
-Strobe(0x8);
+    // cmd = 0x01; //
+    WriteMax(DATA_IND, CLEAR);
+    Strobe(0x8);
 
-// for(i=0; i<1600; i++)continue;
-WriteMax(DATA_IND, ENTRY_MODE|INCR);
-Strobe(0x8);
-// cmd = 0x0F; //Display ON
-WriteMax(DATA_IND, DISPLAY_CTRL|DISPLAY_ON); //Cursor OFF, Blinking OFF
-Strobe(0x8);
+    // for(i=0; i<1600; i++)continue;
+    WriteMax(DATA_IND, ENTRY_MODE|INCR);
+    Strobe(0x8);
+    // cmd = 0x0F; //Display ON
+    WriteMax(DATA_IND, DISPLAY_CTRL|DISPLAY_ON); //Cursor OFF, Blinking OFF
+    Strobe(0x8);
 }
 
 /**----------------------------------------------------------------------------
@@ -212,14 +212,14 @@ LCD_Putch()
 void LCD_Putch(char ch)
 {
 
-if(CurPosCtrl)
-{
-LCD_GotoXY(cur_x,cur_y);
-if(++cur_x>15)cur_x=0,cur_y=~cur_y;
-}
+    if(CurPosCtrl)
+    {
+        LCD_GotoXY(cur_x,cur_y);
+        if(++cur_x>15)cur_x=0,cur_y=~cur_y;
+    }
 
-WriteMax(DATA_IND,ch);
-Strobe(0xC); //R/W = 0, RS = 1 (данные)
+    WriteMax(DATA_IND,ch);
+    Strobe(0xC); //R/W = 0, RS = 1 (данные)
 }
 
 /**----------------------------------------------------------------------------
@@ -234,10 +234,10 @@ bit y - номер строки: 0..1.
 ----------------------------------------------------------------------------- */
 void LCD_GotoXY(unsigned char x,bit y)
 {
-WriteMax(DATA_IND,RAM_DD|(x+((y)?0x40:0)));
-Strobe(0x8); //set ram
-cur_x = x;
-cur_y = y;
+    WriteMax(DATA_IND,RAM_DD|(x+((y)?0x40:0)));
+    Strobe(0x8); //set ram
+    cur_x = x;
+    cur_y = y;
 }
 
 /**----------------------------------------------------------------------------
@@ -251,11 +251,11 @@ LCD_Type()
 ----------------------------------------------------------------------------- */
 void LCD_Type(char* s)
 {
-bit t = CurPosCtrl;
+    bit t = CurPosCtrl;
 
-SwitchCurPosControl(1);
-while(*s)
-LCD_Putch(*s++);
+    SwitchCurPosControl(1);
+    while(*s)
+    LCD_Putch(*s++);
 
-SwitchCurPosControl(t);
+    SwitchCurPosControl(t);
 }

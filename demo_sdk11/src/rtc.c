@@ -78,30 +78,30 @@ GetTime()
 ----------------------------------------------------------------------------- */
 bit GetTime(TIME xdata * time)
 {
-unsigned char h;
+    unsigned char h;
 
-if( !GetAck(RTC_ADDRESS) )
-return 1; //RTC failed to respond
+    if( !GetAck(RTC_ADDRESS) )
+        return 1; //RTC failed to respond
 
-if( ReceiveBlock(RTC_ADDRESS, 1, (unsigned char xdata*)time, 4) )
-return 1; //Error reading
+    if( ReceiveBlock(RTC_ADDRESS, 1, (unsigned char xdata*)time, 4) )
+        return 1; //Error reading
 
-time->hsec = BCD2Bin(time->hsec);
-time->sec = BCD2Bin(time->sec);
-time->min = BCD2Bin(time->min);
-h = BCD2Bin(time->hour & 0x3F);
+    time->hsec = BCD2Bin(time->hsec);
+    time->sec = BCD2Bin(time->sec);
+    time->min = BCD2Bin(time->min);
+    h = BCD2Bin(time->hour & 0x3F);
 
-if( time->hour & 0xC0 ) //12h format and pm time
-{
-if(time->hour < 12)
-time->hour = h + 12;
-else
-time->hour = 0;
-}
-else
-time->hour = h;
+    if( time->hour & 0xC0 ) //12h format and pm time
+    {
+        if(time->hour < 12)
+            time->hour = h + 12;
+        else
+            time->hour = 0;
+    }
+    else
+        time->hour = h;
 
-return 0;
+        return 0;
 }
 
 
@@ -119,19 +119,19 @@ SetTime()
 ----------------------------------------------------------------------------- */
 bit SetTime(TIME xdata * time)
 {
-unsigned char h;
-TIME t;
+    unsigned char h;
+    TIME t;
 
-if( !GetAck(RTC_ADDRESS) )
-return 1; //RTC failed to respond
+    if( !GetAck(RTC_ADDRESS) )
+        return 1; //RTC failed to respond
 
-t.hsec = Bin2BCD(time->hsec);
-t.sec = Bin2BCD(time->sec);
-t.min = Bin2BCD(time->min);
-t.hour = Bin2BCD(time->hour & 0x3F);
+    t.hsec = Bin2BCD(time->hsec);
+    t.sec = Bin2BCD(time->sec);
+    t.min = Bin2BCD(time->min);
+    t.hour = Bin2BCD(time->hour & 0x3F);
 
-if( TransmitBlock(RTC_ADDRESS, 1, (unsigned char xdata*)&t, 4) )
-return 1; //Error reading
+    if( TransmitBlock(RTC_ADDRESS, 1, (unsigned char xdata*)&t, 4) )
+        return 1; //Error reading
 
-return 0;
+    return 0;
 }
