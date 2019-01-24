@@ -80,7 +80,14 @@ void print_voltage( void )
 
 void main( void )
 {
+    unsigned short i, p;
+    unsigned char ch, leds;
     unsigned char c;
+    float temperature;
+    unsigned int target_temperature;
+    char digit;
+    char string[10];
+    int string_id;
 
     init_sio( S9600 );
     init_dac( _8BIT );
@@ -126,5 +133,99 @@ void main( void )
 
     // new code:
     Buzz();
+
+    //----------Инициализация-----------
+    InitLCD();
+    init_sio(S9600);
+    type("Hello!\r\n");
+
+    //----------Пьезоизлучатель---------
+    Buzz();
+
+    //----------ЖКИ---------------------
+    LCD_Clear();
+    LCD_Type(" Hello! ");
+    LCD_GotoXY(0,1);
+
+
+//    // Устанавливаем температуру
+//    temperature = 15.5; // Сначала температура высокая
+
+
+    // Пользователь вводит значение с клавиатуры
+
+
+    //----------Клавиатура, светодиоды--
+    type("\r\nReading keyboard\r\n");
+    LCD_Clear();
+    leds = 0;
+
+    // Пользователь устанавливает значение температуры
+    target_temperature = 0;
+
+    string_id = 0;
+    for (i = 0; i < 10; ++i)
+    {
+        string[i] = '\0';
+    }
+
+    while(1) //Вывод в бесконечном цикле нажатых на клавиатуре SDK-1.1
+    {
+        // клавиш на ЖКИ и терминал ПК
+        WriteMax(LEDLINE, leds); //Единичка в соответствующем бите зажигает
+        //светодиод, нолик - гасит
+
+        leds <<= 1;
+        if( !(leds & 0x80) )
+            leds |= 1;
+
+
+        if( ScanKBOnce(&ch) )
+        {
+            // Была нажата какая-то клавиша
+            wsio(ch);
+
+            if ('0' <= ch && ch <= '9')
+            {
+                // Была нажата цифра
+
+                // Интерпретируем символ как цифру:
+                digit = ch - '0';
+                target_temperature *= 10;
+                target_temperature += (int) digit;
+
+                // Записываем строку для вывода на экран.
+                string[string_id] = ch;
+                string_id ++;
+
+            }
+            else if (ch == 'A')
+            {
+                // Ввод завершен
+                type("\r\nReading keyboard completed\r\n");
+
+                break;
+            }
+            else {
+                // Пользователь ввел что-то не то
+                Buzz();
+            }
+
+
+            // Вывести на экран текущую строку
+            LCD_Clear();
+            LCD_Type(string);
+
+            // Вывести на экран текущий символ
+            // LCD_Putch(ch);
+        }
+        else
+            for(i = 0; i < 2000; i++); //Задержка, регулирующая скорость
+        //изменения состояния светодиодов
+    }
+
+    //
+
+
 
 }
