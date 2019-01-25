@@ -38,6 +38,8 @@ e-mail: kluchev@d1.ifmo.ru
 #include <vect.h>
 
 static float v[ 2 ] = { 0.0, 0.0 };
+static float current_temperature;
+static int target_temperature;
 
 
 //////////////////////// T0_ISR //////////////////////////////
@@ -49,6 +51,18 @@ static float v[ 2 ] = { 0.0, 0.0 };
 void T0_ISR( void ) __interrupt ( 1 )
 {
     // Do some work
+
+    if (current_temperature < (float)target_temperature)
+    {
+        current_temperature += 0.1;
+    }
+    else
+    {
+        current_temperature -= 0.1;
+    }
+
+    // Для имитации будем использовать 0-й канал ЦАП
+    set_voltage(current_temperature, DAC0);
 }
 
 void init_timer()
@@ -113,16 +127,45 @@ void print_voltage( void )
     printf_fast_f( "U0 = %.3fV, U1 = %.3fV \n", v0, v1 );
 }
 
+void int_to_string(int number, char *string, int length)
+{
+    int i, j;
+    int d_count;
+    char temp;
+
+    for (i = 0; i < length; ++i) {
+        string[i] = '\0';
+    }
+
+
+    j = 0; d_count = 0;
+    while (number > 0) {
+        string[j++] = (number % 10) + '0';
+        number /= 10;
+
+        d_count ++;
+    }
+
+    // reverse:
+    for (i = 0; i < d_count / 2; ++i) {
+        temp = string[i];
+        string[i] = string[d_count - 1 - i];
+        string[d_count - 1 - i] = temp;
+    }
+}
+
+
 void main( void )
 {
     unsigned short i, p;
     unsigned char ch, leds;
     unsigned char c;
-    float temperature;
-    unsigned int target_temperature;
     char digit;
     char string[10];
     int string_id;
+
+    float measured_temperature; // Измеренная температура
+    int int_measured_temperature;
 
     init_sio( S9600 );
     init_dac( _8BIT );
@@ -142,6 +185,8 @@ void main( void )
     type("4 - -voltage, DAC1\r\n");
 
     type("r - get voltage, ADC1 & ADC2 \r\n");
+
+
 
 
     while( 1 )
@@ -186,8 +231,12 @@ void main( void )
     LCD_GotoXY(0,1);
 
 
-//    // Устанавливаем температуру
-//    temperature = 15.5; // Сначала температура высокая
+    // Устанавливаем текущую температуру
+    current_temperature = 24.0;
+
+    // Измеренное значение температуры
+    measured_temperature = 0.0;
+
 
 
     // Пользователь вводит значение с клавиатуры
@@ -263,6 +312,23 @@ void main( void )
     }
 
     //
+
+    while (1)
+    {
+        // Измеряем температуру (АЦП)
+        // и выводим ее на экран
+
+        measured_temperature = get_voltage( 0 );
+
+        // Берем целую часть температуры
+        int_measured_temperature = (int) measured_temperature;
+
+        int_to_string(int_measured_temperature, string, 10);
+
+        type(string); // Вывести строку в терминал
+        LCD_Type(string); // Вывести строку на ЖКИ дисплей
+    }
+
 
 
 
