@@ -1,7 +1,6 @@
 #ifndef _VECT_H
 #define _VECT_H
 
-extern void SetVect(unsigned char num, void code * handler);
-extern void code * GetVect(unsigned char num);
+extern void SetVector(unsigned char __xdata * Address, void * Vector);
 
 #endif //_VECT_H
