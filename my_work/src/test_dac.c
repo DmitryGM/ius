@@ -31,13 +31,48 @@ e-mail: kluchev@d1.ifmo.ru
 #include <dac.h>
 #include <adc.h>
 #include <stdio.h>
-
 #include <max.h>
 #include <lcd.h>
 #include <buzz.h>
 #include <kb.h>
+#include <vect.h>
 
 static float v[ 2 ] = { 0.0, 0.0 };
+
+
+//////////////////////// T0_ISR //////////////////////////////
+// Обработчик прерывания от таймера 0.
+// Вход: нет.
+// Выход: нет.
+// Результат: нет.
+//////////////////////////////////////////////////////////////
+void T0_ISR( void ) __interrupt ( 1 )
+{
+    // Do some work
+}
+
+void init_timer()
+{
+    // Инициализация таймера 0
+
+    // Задаем частоту таймера
+    TH0 = 0xFF;
+    TL0 = 0xF0;
+
+    TMOD = 0x01;
+    // Selected timer operation (input from internal system clock)
+    // 16-Bit Timer/Counter. TH0 and TL0 are cascaded; there is no prescaler.
+
+    TCON = 0x10; // Включаем таймер 0
+
+    // Установка вектора в пользовательской таблице
+    SetVector( 0x200B, (void *)T0_ISR );
+
+    // Разрешение прерываний от таймера 0
+    ET0 = 1; EA = 1;
+}
+
+
 
 
 void putchar( char c ) { wsio( c ); }
@@ -137,6 +172,9 @@ void main( void )
     //----------Инициализация-----------
     InitLCD();
     init_sio(S9600);
+
+    init_timer(); // Включаем таймер 0, имитирующий работу холодильника
+
     type("Hello!\r\n");
 
     //----------Пьезоизлучатель---------
