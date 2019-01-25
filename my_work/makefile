@@ -11,18 +11,18 @@ LFLAGS  = --code-loc 0x2100 --xram-loc 0x6000 --stack-auto --stack-loc 0x80
 
 # Настройки системы автоинкремента версии сборки
 
-PROJECT  = $(shell cat PROJECT)
-VERSION  = $(shell cat VERSION)
-BUILD    = $(shell cat BUILD)
-TYPE     = $(shell cat TYPE)
+PROJECT  = $(shell type PROJECT)
+VERSION  = $(shell type VERSION)
+BUILD    = $(shell type BUILD)
+TYPE     = $(shell type TYPE)
 
 PROJNAME = ${PROJECT}-${VERSION}-${BUILD}-${TYPE}
 TARBALL  = ${PROJNAME}.tar
 
 # Настройки M3P
 
-M3P	 = ./m3p
-COMPORT	 = /dev/ttyS0
+M3P		 = m3p
+COMPORT	 = com1
 COMLOG	 = $(COMPORT)_log.txt
 BAUD	 = 9600
 
@@ -34,26 +34,27 @@ SRC_DIR = src
 all: test_dac
 
 clean:
-	-rm -f  $(NAME).hex \
-			$(NAME).bin \
-			$(NAME).map \
-			$(NAME).mem \
-			$(NAME).lnk \
-			pm3p_*.txt \
-			com?_log.txt \
-			$(TARBALL).gz \
-			$(SRC_DIR)/*.asm \
-			$(SRC_DIR)/*.rel \
-			$(SRC_DIR)/*.rst \
-			$(SRC_DIR)/*.sym \
-			$(SRC_DIR)/*.lst
+	del $(SRC_DIR)\*.asm
+	del $(SRC_DIR)\*.rel
+	del $(SRC_DIR)\*.rst
+	del $(SRC_DIR)\*.sym
+	del $(SRC_DIR)\*.lst 
+	del $(NAME).hex
+	del $(NAME).bin
+	del $(NAME).map
+	del $(NAME).mem
+	del $(NAME).lnk
+	del pm3p_*.txt
+	del com?_log.txt
+	# del $(TARBALL).gz
+
 
 load:
 	$(M3P) lfile load.m3p
 
 
 dist:
-	tar cvf $(TARBALL) *
+	tar -cvf $(TARBALL) --exclude=*.tar .
 	gzip $(TARBALL)
 
 term:
