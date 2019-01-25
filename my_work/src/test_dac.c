@@ -40,6 +40,7 @@ e-mail: kluchev@d1.ifmo.ru
 static float v[ 2 ] = { 0.0, 0.0 };
 static float current_temperature;
 static int target_temperature;
+static bit fridge_state;
 
 
 //////////////////////// T0_ISR //////////////////////////////
@@ -50,15 +51,36 @@ static int target_temperature;
 //////////////////////////////////////////////////////////////
 void T0_ISR( void ) __interrupt ( 1 )
 {
-    // Do some work
+    char ch;
+
+    // Обновляем состояние холодильника
+    if( ScanKBOnce(&ch) )
+    {
+        if (ch == '0')
+        {
+            fridge_state = 0;
+        }
+        else if (ch == '1')
+        {
+            fridge_state = 1;
+        }
+        else {
+            // Пользователь ввел что-то не то
+            Buzz();
+        }
+    }
+
+    // Если холодильник ВЫКЛ, выходим.
+    if (!fridge_state)
+        return;
 
     if (current_temperature < (float)target_temperature)
     {
-        current_temperature += 0.1;
+        current_temperature += 0.0001;
     }
     else
     {
-        current_temperature -= 0.1;
+        current_temperature -= 0.0001;
     }
 
     // Для имитации будем использовать 0-й канал ЦАП
@@ -237,7 +259,8 @@ void main( void )
     // Измеренное значение температуры
     measured_temperature = 0.0;
 
-
+    // Состояние холодильника == ВКЛ
+    fridge_state = 1;
 
     // Пользователь вводит значение с клавиатуры
 
