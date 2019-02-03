@@ -2,12 +2,12 @@
     -- Открытие com-порта (com1) на скорости 9600 бит/с
     9600 openchannel //./com3
 
-
 : wait
     
     cr cr
-    ." Включите питание и нажмите кнопку RESET на стенде SDK." cr cr 
-    ." Ожидание перезапуска... " 
+    ." Press RESET"
+    cr cr 
+    ." Waiting... " 
 
     begin rsio dup emit 109 == until
 
