@@ -44,52 +44,59 @@ void delay_ms(time t){
 }
 
 float t, target_t;
+bit door; // door condition
 
 void init_t() {
 	t = 20.0;
 	target_t = 5.0;
+	door = 0; // door is open
 }
 
 void T2_ISR( void ) __interrupt ( 2 ) {
+	bit lcd_updated;
+	bit new_door_state;
 	int i;
 	u8 dips;
 	char string[10];
+
 	cur_ms++;
 
-	// trash :)
-	// TH2 = 0xFF;
-	// TL2 = 0xFF;
-	// RCAP2H = 0xFF;
-	// RCAP2L = 0xFF;
-
-
+	lcd_updated = 0;
 
 	// each second:
 	if (cur_ms % 1000 == 0) {
 		// type("TIMER 2\n");
 
-		// 1. изменить температуру t -> target_t
+		// 1. изменить температуру t -> target_t (если закрыта дверца)
 		// 2. вывести температуру t
 		// 3. проверить dip-ы
-		// 4. если включен dip, то ждем ввода с клавиатуры,
-		//    иначе ничего не делаем
-		// 5. пользователь вводит 2 цифры -- число град.
-		// 6. запоминаем новый таргет. Продолжаем работу.
+		// 4. если включен dip#0, ждем ввода с клавиатуры
+		//     4.1. пользователь вводит 2 цифры -- число град.
+		//     4.2. запоминаем новый таргет. Продолжаем работу.
+		// 5. если включен dip#1, открыта дверца холодильника
+		//     5.1 обновляем состояние дверцы
 
 		// 1.
-		if (t < target_t)
-	        t += 1.0;
-	    else
-	        t -= 1.0;
+		if (door) {
+			// door is close
+			if (t < target_t)
+		        t += 1.0;
+		    else
+		        t -= 1.0;
+
+		    lcd_updated = 1;
+		}
 
 	    // 2.1
-	    int_to_string(t, string, 10);
-	    type(string);
-	    type("\n");
+	    if (lcd_updated) {
+		    int_to_string(t, string, 10);
+		    type(string);
+		    type("\n");
 
-	    // 2.2
-		LCD_Clear();
-		LCD_Type(string);
+		    // 2.2
+			LCD_Clear();
+			LCD_Type(string);
+		}
 
 		for (i = 0; i < 6; ++i);
 
@@ -98,13 +105,21 @@ void T2_ISR( void ) __interrupt ( 2 ) {
 	    // 3.
 	    dips = ReadMax(EXT_LO);
 	    print_byte(dips);
-	    if (dips & 1)
-	    	return;
-	    print_byte(dips);
+	    if (!(dips & 1)) {
+		    // 4.
+		    target_t = (float) read_keyboard();
+		}
 
-	    // 4.
 	    // 5.
-	    target_t = (float) read_keyboard();
+		new_door_state = dips & 2;
+
+	    if (new_door_state != door) {
+		    // 4.
+		    door = new_door_state;
+
+		    WriteMax(LEDLINE, (char)(!door));
+		}
+
 	}
 }
 
